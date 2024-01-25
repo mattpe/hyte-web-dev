@@ -30,6 +30,7 @@
 
 1. Implement a functional [simple example REST API endpoints](02-node-express.md#simple-example-of-rest-api-documentation) for the item mock data in `src/items.js`. For example:
    - Adding an item should push a new item object to the mock data array
+     - See the [example](02-node-express.md#reading-data-from-request-body) of reading POST body data in JSON format 
    - Deleting an item should delete the item object with matching id
    - Invalid http requests should be responded with appropriate messages and status codes
 1. Create a new module file `src/users.mjs` and add the following mock data to it:
