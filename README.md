@@ -13,3 +13,7 @@ Week 2
 
 3. [Modern JavaScript features](03-javascript-features.md)
 4. [Node.js and Express continues](04-node-express-2.md)
+
+Week 3
+
+5. [Relational databases](05-databases.md)
