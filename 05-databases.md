@@ -270,12 +270,12 @@ Examples:
 
 ```sql
 -- Inserting a single record, without specifying column names
-INSERT INTO Users VALUES (1, 'johndoe', 'temp-pw-1', 'johndoe@example.com', null, 'regular');
+INSERT INTO Users VALUES (1, 'johndoe', 'temp-pw-1', 'johndoe@example.com', '2024-01-02 10:00:00', 'regular');
 
--- Iserting multiple user rows at once
-INSERT INTO Users (username, password, email, created_at, user_level) VALUES
-  ('janedoe', 'temp-pw-2', 'janedoe@example.com', '2024-01-02 10:00:00', 'admin'),
-  ('mike_smith', 'temp-pw-3', 'mike@example.com', '2024-01-03 11:00:00', 'moderator');
+-- Iserting multiple user rows at once (default values like created_at are inserted without need to specify them)
+INSERT INTO Users (username, password, email, user_level) VALUES
+  ('janedoe', 'temp-pw-2', 'janedoe@example.com', 'admin'),
+  ('mike_smith', 'temp-pw-3', 'mike@example.com', 'moderator');
 
 -- Example when FK constraint fails (if user_id 15 does not exist)
 INSERT INTO DiaryEntries (user_id, entry_date, mood, weight, sleep_hours, notes, created_at) VALUES
@@ -474,13 +474,24 @@ DELETE FROM DiaryEntries WHERE entry_id = 2;
 
 Think about requirements of a health diary app. What kind of data is needed?
 
-1. Design couple tables more for the app (in addition to the ones we already have in examples)
+1. Test the example queries in this material
+1. Design one or two tables more for the app (in addition to the ones we already have in examples)
 1. Draw a diagram of the database structure (including relations between tables)
 1. Define the data types for the columns
 1. Define primary keys and foreign keys
 1. Implement SQL statements for creating the tables
 1. Insert multiple records of mock data into the tables
 1. Think about use cases for the data from the application point of view and provide examples how to update, delete and query the data in a meaningful way
-1. Create a script including all your SQL statements (create tables, insert data, queries, updates, etc.)
+1. Create a `db/` folder into your project repo
+   - Create a script file including all your SQL statements (create tables, insert data, queries, updates, etc.)
+   - Place your db design files (e.g. image) into the folder
+1. Add, commit and push the script to your Git and Github repo:
+
+    ```sh
+    git checkout -b week3
+    git add .
+    git commit -m "Add database design and sql script"
+    git push origin week3
+    ```
 
 **Returning:** Check assignment in OMA.
