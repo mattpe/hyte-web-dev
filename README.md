@@ -17,3 +17,22 @@ Week 2
 Week 3
 
 5. [Relational databases](05-databases.md)
+
+Week 4
+
+6. [Database design](06-database-api.md)
+7. [Express MVC, Routing and Middlewares](07-express-mvc-db.md)
+
+Week 5 
+
+8. Application State, Authentication and authorization
+9. Input validation and error handling
+
+Weeks 6 & 7
+
+10. REST API Documentation
+11. Deployment
+
+Week 8
+
+12. Kubios cloud integration
