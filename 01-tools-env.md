@@ -265,7 +265,7 @@ code analysis and identifying potential issues.
 - helps maintain code readability and improves code maintainability by providing a consistent and clean codebase.
 
     ```javascript
-    // sample .prettierrc.js
+    // sample .prettierrc.cjs
     module.exports = {
       semi: true,
       singleQuote: true,
