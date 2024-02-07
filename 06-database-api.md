@@ -58,8 +58,6 @@ Review and import [this script file](assets/health-diary-db.sql).
 
 ## Advanced SQL queries
 
-?? TODO: modify for health diary
-
 ### Grouping and aggregation
 
 Query result may have several identical rows. To get unique rows only, use `DISTINCT`:
