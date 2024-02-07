@@ -139,17 +139,17 @@ SELECT username, MIN(sleep_hours), MAX(sleep_hours), AVG(sleep_hours)
 ```sql
 -- select all users who have medication using subquery
 SELECT * FROM Users WHERE user_id IN (
-  SELECT user_id FROM Medications
+  SELECT DISTINCT user_id FROM Medications
 );
 
 -- select all users who have no diary entries
 SELECT * FROM Users WHERE user_id NOT IN (
-  SELECT user_id FROM DiaryEntries
+  SELECT DISTINCT user_id FROM DiaryEntries
 );
 
 -- change all admins to regular users
 UPDATE Users SET user_level = 'regular' WHERE user_id IN (
-  SELECT user_id FROM Users WHERE user_level = 'admin'
+  SELECT DISTINCT user_id FROM Users WHERE user_level = 'admin'
 );
 
 ```
