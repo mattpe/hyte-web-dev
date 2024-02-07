@@ -1,4 +1,4 @@
-# Express MVC, Routing, Middlewares and Database connectionoften
+# Express MVC, Routing, Middlewares and Database connection
 
 ## Model-View-Controller (MVC)
 
