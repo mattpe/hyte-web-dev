@@ -120,7 +120,7 @@ _src/routes/entry-router.mjs:_
 ```js
 import express from 'express';
 import {
-  getEnries,
+  getEntries,
   getEntryById,
   postEntry,
   putEntry,
@@ -185,7 +185,7 @@ export {getEntries, getEntryById, postEntry, putEntry, deleteEntry};
 _src/models/entry-model.mjs:_
 
 ```js
-// mock data
+// temporal mock data for testing, should be replaced with real data from DB
 const diaryEntries = [
   {
     "entry_id": 5,
