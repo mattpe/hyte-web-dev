@@ -371,7 +371,7 @@ const getEntries = async (req, res) => {
 };
 
 const getEntryById = async (req, res) => {
-  const Entry = await findEntryById(req.params.id);
+  const entry = await findEntryById(req.params.id);
   if (entry) {
     res.json(entry);
   } else {
