@@ -338,7 +338,7 @@ const findEntryById = async (id) => {
 };
 
 const addEntry = async (entry) => {
-  const {user_id, filename, size, mimetype, title, description} = entry;
+  const {user_id, entry_date, mood, weight, sleep_hours, notes} = entry;
   const sql = `INSERT INTO DiaryEntries (user_id, entry_date, mood, weight, sleep_hours, notes)
                VALUES (?, ?, ?, ?, ?, ?)`;
   const params = [user_id, entry_date, mood, weight, sleep_hours, notes];
@@ -380,19 +380,18 @@ const getEntryById = async (req, res) => {
 };
 
 const postEntry = async (req, res) => {
-  const {title, description, user_id} = req.body;
-  if (filename && title && user_id) {
-    const result = await addEntry({filename, size, mimetype, title, description, user_id});
+  const {user_id, entry_date, mood, weight, sleep_hours, notes} = req.body;
+  if (entry_date && (weight || mood || sleep_hours || notes) && user_id) {
+    const result = await addEntry(req.body);
     if (result.entry_id) {
       res.status(201);
       res.json({message: 'New entry added.', ...result});
-    }
-    else {
+    } else {
       res.status(500);
       res.json(result);
     }
   } else {
-    res.sendStatus(400);  
+    res.sendStatus(400);
   }
 };
 
