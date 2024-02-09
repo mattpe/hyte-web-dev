@@ -262,6 +262,10 @@ Middleware functions are functions that have access to the request object (`req`
 
 Study: [using middleware](https://expressjs.com/en/guide/using-middleware.html) and [writing middleware](https://expressjs.com/en/guide/writing-middleware.html) in Express.
 
+### Cross-Origin Resource Sharing (CORS)
+
+If running the front-end and back-end on different servers, you need to take care of [CORS](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS) issues. One option is to use the [cors](https://github.com/expressjs/cors#readme) middleware [in Express](https://expressjs.com/en/resources/middleware/cors.html) app.
+
 ## Database connection in Express
 
 1. Import the [example database](assets/health-diary-db.sql).
