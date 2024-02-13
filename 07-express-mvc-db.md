@@ -424,6 +424,7 @@ export {getEntries, getEntryById, postEntry, putEntry, deleteEntry};
 
 1. Continue your existing Express app and create a branch `express-db`
 1. Implement MVC model (file or feature based project structure, your choice)
+   - You can use the teacher's example code as a starting point (see Oma).
    - Convert your existing API resources (`/api/entries` and `/api/users`) to use the MVC model
    - Use react.Router to modularize your routes for separate endpoints
    - Connect to the database (mysql2) and use appropriate SQL statements in the data models
@@ -444,4 +445,4 @@ export {getEntries, getEntryById, postEntry, putEntry, deleteEntry};
      - What features/functions you implemented and why?
      - How they work?
 
-**Returning:** Follow the teacher's example (link in Oma) and implement TODOs in the example code. See assignment details in Oma.
+**Returning:** See assignment in Oma.
