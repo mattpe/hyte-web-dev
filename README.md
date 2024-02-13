@@ -23,15 +23,18 @@ Week 4
 6. [Database design](06-database-api.md)
 7. [Express MVC, Routing and Middlewares](07-express-mvc-db.md)
 
-Week 5 
+Week 5
 
-8. Application State, Authentication and authorization
-9. Input validation and error handling
+8. [Application State, Authentication and authorization](08-state-auth.md)
 
-Weeks 6 & 7
+Week 6
 
-10. REST API Documentation
-11. Deployment
+9. [Input validation and error handling](09-validation.md)
+10. [Deployment](10-deployment.md)
+
+Week 7
+
+11. [REST API Documentation](11-documentation.md)
 
 Week 8
 
