@@ -38,4 +38,4 @@ Week 7
 
 Week 8
 
-12. Kubios cloud integration
+12. Course exam and finalizing individual project assignment
