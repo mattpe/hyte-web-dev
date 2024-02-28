@@ -131,7 +131,7 @@ Input data validation in web applications is a critical process that ensures the
     ...
     import {body} from 'express-validator';
     ...
-    mediaRouter
+    entryRouter
       .route('/')
       .get(getEntries)
       .post(
@@ -146,18 +146,15 @@ Input data validation in web applications is a critical process that ensures the
     ```js
     import {validationResult} from 'express-validator';
     ...
-    const postMedia = async (req, res) => {
-      // check if file is rejected by multer
-      if (!req.file) {
-        return res.status(400).json({error: 'Invalid or missing file'});
-      }
+    const postEntry = async (req, res) => {
+
       // validation errors can be retrieved from the request object (added by express-validator middleware)
       const errors = validationResult(req);
       // check if any validation errors
       if (!errors.isEmpty()) {
         return res.status(400).json({errors: errors.array()});
       }
-      // TODO: call model function to add the valid media item to database
+      // TODO: call model function to add the valid entry item to database
       ...
     };
     ...
