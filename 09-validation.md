@@ -255,7 +255,7 @@ Input data validation in web applications is a critical process that ensures the
       const user_id = req.user.user_id;
       // combine fields into a new entry object
       const newEntry = {user_id, entry_date, mood, weight, sleep_hours, notes};
-      const result = await addMedia(newEntry);
+      const result = await addEntry(newEntry);
       if (result.error) {
         return next(new Error(result.error));
       }
@@ -266,9 +266,8 @@ Input data validation in web applications is a critical process that ensures the
 
 1. Test the error handler by sending invalid requests to the API, for example:
    - `POST /api/users` with an empty request body
-   - `POST /api/media` with an empty request body
-   - `POST /api/media` with a file that is not an image or video
-   - `POST /api/media` with a file that is larger than 10 MB
+   - `POST /api/entries` with an empty request body
+   - `POST /api/entries` with invalid field values
 
 ---
 
