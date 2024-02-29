@@ -7,18 +7,33 @@
 
 Prerequicities: Toolchain installed.
 
-1. `npm init` wizard needs an interactive shell, so use VS Code terminal or Git Bash
-1. Setup eslint: `npm init @eslint/config`, remember to select `node` environment
-   - √ How would you like to use ESLint? _To check syntax, find problems, and enforce code style_
-   - √ What type of modules does your project use? _JavaScript modules (import/export)_
-   - √ Which framework does your project use? _none of these_
-   - √ Does your project use TypeScript? _No_
-   - √ Where does your code run? _Node_
-   - √ How would you like to define a style for your project? _Use a popular style guide_
-   - √ Which style guide do you want to follow? _Google_
-   - √ What format do you want your config file to be in? _JavaScript_
-   - √ Would you like to install them now? _Yes_
-   - √ Which package manager do you want to use? _npm_
+1. Create a new folder for your project
+1. Open the project folder in your code editor
+1. Open terminal (command-line) in the project folder
+1. Run `npm init` inside the project folder, wizard needs an interactive shell, use terminal on MacOS/Linux or Git Bash/Powershell on Windows
+1. Setup eslint:
+    - install packages `npm install --save-dev eslint eslint-config-google`
+    - add `.eslintrc.cjs` file with following content:
+
+    ```js
+    module.exports = {
+      'env': {
+        'es2021': true,
+        'node': true,
+      },
+      'extends': 'google',0
+      'overrides': [],
+      'parserOptions': {
+        'ecmaVersion': 'latest',
+        'sourceType': 'module',
+      },
+      'rules': {
+        'indent': ['warn', 2],
+        'new-cap': ['error', {capIsNewExceptions: ['Router']}],
+      },
+    };
+    ```
+
 1. Install `nodemon` as a development dependency: `npm install --save-dev nodemon`
 1. Review `package.json`, add a script for starting your app with nodemon and type property
 
@@ -26,8 +41,8 @@ Prerequicities: Toolchain installed.
    ...
    "type": "module",
    "scripts": {
-    "dev": "nodemon src/index.js",
-    ...
+     "dev": "nodemon src/index.js",
+     ...
    ```
 
 1. Create a `.gitignore` file and add `node_modules` to it, keep it alway up to date
