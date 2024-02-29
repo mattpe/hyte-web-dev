@@ -271,7 +271,7 @@ code analysis and identifying potential issues.
       singleQuote: true,
       bracketSpacing: false,
       singleQuote: true,
-      trailingComma: 'es5',
+      trailingComma: 'all',
     };
     ```
 
