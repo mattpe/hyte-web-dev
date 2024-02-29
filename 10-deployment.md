@@ -27,17 +27,17 @@ The choice of the running environment components depends on factors like the typ
 
 Cloud computing models provide different levels of control, flexibility, and management. The three primary models are:
 
-1. Software as a Service (SaaS)
+1. **Software as a Service (SaaS)**
    - SaaS delivers software applications over the internet, on a subscription basis. The applications are hosted and managed by the service provider.
    - End-users can use the software but don't manage the infrastructure or platform running the application.
    - Examples: Google Workspace, Microsoft Office 365, Salesforce, Dropbox.
    - Ideal for businesses that want ready-to-use applications without worrying about installation, maintenance, or infrastructure.
-2. Platform as a Service (PaaS)
+2. **Platform as a Service (PaaS)**
    - PaaS provides a platform allowing customers to develop, run, and manage applications without the complexity of building and maintaining the infrastructure typically associated with developing and launching an app.
    - Users manage applications and data, while the provider manages runtime, middleware, operating system, virtualization, servers, storage, and networking.
    - Examples: Heroku, Google App Engine, Microsoft Azure App Services.
    - Suitable for developers who want to focus on their software and data without dealing with servers, storage, and networking.
-3. Infrastructure as a Service (IaaS)
+3. **Infrastructure as a Service (IaaS)**
    - IaaS provides fundamental computing resources such as virtual machines, storage, and networks over the internet. Users have control over their infrastructure, similar to traditional physical data centers, but it's available over the cloud.
    - Users have control over operating systems, storage, deployed applications, and possibly limited control of select networking components (e.g., host firewalls).
    - Examples: Amazon Web Services (AWS), Microsoft Azure, Google Compute Engine (GCE).
@@ -45,7 +45,7 @@ Cloud computing models provide different levels of control, flexibility, and man
 
 >SaaS is like renting a house - you use it as it is, without worrying about maintaining it.
 PaaS is like renting the land and building your house - you control the house but not the land it’s on.
-IaaS is like leasing a plot of land - you have full control over the land and what you build on it, but you don’t own the land.
+IaaS is like leasing/buying a plot of land - you have full control over the land and what you build on it, but you don’t own the land.
 
 ## Security considerations
 
@@ -99,6 +99,7 @@ When deploying applications to a server environment, security is a critical conc
    - Consider versioning your API to avoid breaking changes and to allow clients to migrate at their own pace.
 1. **Security Headers**
    - Utilize security headers, such as [Content Security Policy (CSP)](https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP) and [Strict-Transport-Security (HSTS)](https://developer.mozilla.org/en-US/docs/Glossary/HSTS), to enhance overall security.
+   - Check [Helmet](https://expressjs.com/en/advanced/best-practice-security.html#use-helmet) for Express applications.
 1. **Security Reviews and Audits**
    - Regularly conduct security reviews and audits of your API design, code, and infrastructure.
    - Stay informed about security best practices and vulnerabilities relevant to your technology stack.
