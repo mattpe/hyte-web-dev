@@ -237,12 +237,11 @@ Help for Linux usage:
 
 ![Apache reverse proxy](./assets/apache-node-proxy.png)
 
-1. Install _node.js_ and _npm_  from [nodesource package repository](https://github.com/nodesource/distributions#ubuntu-versions) (read e.g. [some instructions](https://www.digitalocean.com/community/tutorials/how-to-install-node-js-on-ubuntu-22-04)):
+1. Install _node.js_ and _npm_  from [nodesource package repository](https://github.com/nodesource/distributions#ubuntu-versions):
 
    ```bash
-   curl -sL https://deb.nodesource.com/setup_20.x -o /tmp/nodesource_setup.sh
-   sudo bash /tmp/nodesource_setup.sh
-   sudo apt install nodejs
+   curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash - &&\
+   sudo apt-get install -y nodejs
    # check that the installed tools are working:
    node -v
    npm -v
