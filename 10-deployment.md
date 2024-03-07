@@ -220,7 +220,7 @@ Help for Linux usage:
 
    (in case you would need outside access (e.g. during project, separate database server from app server), replace `localhost` with `'%'` in the two GRANT queries and remember that the settings you did with `mysql_secure_installation` may prevent this).
 
-1. Download the [health-diary-db.sql](./assets/health-diary-db.sql) SQL script. Can be done directly from server using curl: `curl -O <FILE-URL>` (note: click the _Raw_ button on script's GitHub page in order to get a working url) or downloaded at first to your local computer and then uploaded with any SCP file transfer tool to the server. (e.g. using command line secure copy tool **scp**: `scp health-diary-db.sql <YOUR-USERNAME>@<YOUR-SERVE-NAME/IP>:`)
+1. Use your own database creation script or download the [health-diary-db.sql](./assets/health-diary-db.sql) example SQL script. Can be done directly from server using curl: `curl -O <FILE-URL>` (note: click the _Raw_ button on script's GitHub page in order to get a working url) or downloaded at first to your local computer and then uploaded with any SCP file transfer tool to the server. (e.g. using command line secure copy tool **scp**: `scp health-diary-db.sql <YOUR-USERNAME>@<YOUR-SERVE-NAME/IP>:`)
    - Alternatively, you can just copy paste the contents of the file to mysql client on the server.
 1. Import the tables and insert the data: `mysql -u myusername -p < health-diary-db.sql` or `sudo mysql < health-diary-db.sql`
 1. Eventually check that the user account works and the data is there: `mysql -u myusername -p`
@@ -297,12 +297,12 @@ Help for Linux usage:
 
    1. Read [Production best practices: performance and reliability](https://expressjs.com/en/advanced/best-practice-performance.html) and [What is NODE_ENV in Node.js](https://www.geeksforgeeks.org/what-is-node_env-in-node-js/)
       - Prepare your app for production and create a new git branch `deployment` or use `main`
-   1. make sure you are in your home folder: `cd`
-   1. `git clone <your-repo-url-here>` (or copy your back-end app to your home folder on the server exluding the contents of `node_modules` & `uploads` folders)
-   1. go to the app directory: `cd <my-app>`
-   1. if you cloned the repo, check that you are in the right branch (checkout if not)
-   1. install your dependencies: `npm install --production`
-   1. create/edit `.env` file (see `.env.sample`) with your db credentials (you set in [MariaDB](#mariadb-database-server)) and other settings:
+   1. Make sure you are in your home folder: `cd`
+   1. `git clone <your-github-repo-url-here>` (or copy your back-end app to your home folder on the server exluding the contents of `node_modules` & `uploads` folders)
+   1. Go to the app directory: `cd <my-app>`
+   1. If you cloned the repo, make sure that you are in the right branch (`git checkout <branchname>` if not)
+   1. Install your dependencies: `npm install --production`
+   1. Create/edit `.env` file (see `.env.sample`) with your db credentials (you set in [MariaDB](#mariadb-database-server)) and other settings:
 
       ```conf
       DB_HOST=127.0.0.1
@@ -313,12 +313,12 @@ Help for Linux usage:
       ...
       ```
 
-   1. to test start your application: `node src/index.js` or `npm start`
-   1. to kill the app, use `CTRL+C`, or if no more hanging in your terminal session, try `pkill node` or use `top`
-   1. test: open a browser and visit `https://<your-ip-address-or-hostname>/app/cat`
-   1. to have your app running "forever" as a background service, featuring automatic restart on crash, use e.g. [pm2](https://pm2.keymetrics.io/):
+   1. For quick testing, start your application: `node src/index.js` or `npm start`
+   1. To kill the app, use `CTRL+C`, or if no more hanging in your terminal session, try `pkill node` or use `top`
+   1. Test: open a browser and visit `https://<your-ip-address-or-hostname>/api/<endpoint>`
+   1. To have your app running "forever" as a background service, featuring automatic restart on crash, use e.g. [pm2](https://pm2.keymetrics.io/):
 
-      ```bash
+      ```sh
       sudo npm install -g pm2
       pm2 start src/index.js --name <MY-SERVER-APP-NAME>
       ```
