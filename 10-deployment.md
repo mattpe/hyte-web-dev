@@ -220,8 +220,9 @@ Help for Linux usage:
 
    (in case you would need outside access (e.g. during project, separate database server from app server), replace `localhost` with `'%'` in the two GRANT queries and remember that the settings you did with `mysql_secure_installation` may prevent this).
 
-1. Download the [health-diary-db.sql](./assets/health-diary-db.sql) SQL script. Can be done directly from server using curl: `curl -O <FILE-URL>` (note: click the _Raw_ button on script's GitHub page in order to get a working url) or downloaded at first to your local computer and then uploaded with any SCP file transfer tool to the server. (e.g. using command line secure copy tool **scp**: `scp media-db.sql <YOUR-USERNAME>@<YOUR-SERVE-NAME/IP>:`)
-1. Import the tables and insert the data: `mysql -u myusername -p < media-db.sql` or `sudo mysql < health-diary-db.sql`
+1. Download the [health-diary-db.sql](./assets/health-diary-db.sql) SQL script. Can be done directly from server using curl: `curl -O <FILE-URL>` (note: click the _Raw_ button on script's GitHub page in order to get a working url) or downloaded at first to your local computer and then uploaded with any SCP file transfer tool to the server. (e.g. using command line secure copy tool **scp**: `scp health-diary-db.sql <YOUR-USERNAME>@<YOUR-SERVE-NAME/IP>:`)
+   - Alternatively, you can just copy paste the contents of the file to mysql client on the server.
+1. Import the tables and insert the data: `mysql -u myusername -p < health-diary-db.sql` or `sudo mysql < health-diary-db.sql`
 1. Eventually check that the user account works and the data is there: `mysql -u myusername -p`
 
    ```sql
