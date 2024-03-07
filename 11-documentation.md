@@ -171,7 +171,7 @@ const authRouter = express.Router();
  *        "user_id": 21,
  *        "username": "johnd",
  *        "email": "johnd@example.com",
- *        "user_level_id": 2
+ *        "user_level": "regular"
  *      }
  *    }
  *
@@ -225,10 +225,10 @@ authRouter.route('/me').get(authenticateToken, getMe);
 
 ## Assignment - API Documentation
 
-1. Continue your existing Express app and create a new branch `docs`
-1. Create API documentation for your app using [apidoc](https://apidocjs.com/), Swagger or other similar tool of your own choice (max. 3 points)
+1. Continue your existing Express app and create a new branch `docs` (see teachers's lecture example)
+1. Create API documentation for your app using [apidoc](https://apidocjs.com/), Swagger or other similar tool of your own choice
    - install needed packages
-   - generate documentation (for example to `docs` folder using an npm script)
-   - serve the documentation withing your app (for example using `express.static` middleware)
+   - generate documentation (for example to `docs` folder using npm script)
+   - serve the documentation within your app (user `express.static` middleware for serving the `docs` folder)
 
 **Returning:** No specific return is needed. The documentation should be available for your individual project.
