@@ -298,17 +298,19 @@ Help for Linux usage:
    1. Read [Production best practices: performance and reliability](https://expressjs.com/en/advanced/best-practice-performance.html) and [What is NODE_ENV in Node.js](https://www.geeksforgeeks.org/what-is-node_env-in-node-js/)
       - Prepare your app for production and create a new git branch `deployment` or use `main`
    1. make sure you are in your home folder: `cd`
-   1. `git clone` or copy your back-end app to your home folder on the server (exluding the contents of `node_modules` & `uploads` folders)
+   1. `git clone <your-repo-url-here>` (or copy your back-end app to your home folder on the server exluding the contents of `node_modules` & `uploads` folders)
    1. go to the app directory: `cd <my-app>`
    1. if you cloned the repo, check that you are in the right branch (checkout if not)
    1. install your dependencies: `npm install --production`
-   1. create/edit `.env` file with your db credentials (you set in [MariaDB](#mariadb-database-server)):
+   1. create/edit `.env` file (see `.env.sample`) with your db credentials (you set in [MariaDB](#mariadb-database-server)) and other settings:
 
       ```conf
       DB_HOST=127.0.0.1
       DB_USER=<your-db-user>
       DB_PASSWORD=<your-db-user_password>
       DB_NAME=<your-db-name>
+      JWT_SECRET=somesecuresecrethere
+      ...
       ```
 
    1. to test start your application: `node src/index.js` or `npm start`
@@ -329,7 +331,7 @@ Help for Linux usage:
 
 #### Static UI files (Front-end)
 
-Front-end HTML/CSS/JS files can be served from any web server. **Easiest solution** is to use the [Express static](https://expressjs.com/en/starter/static-files.html) files serving option. Then you don't need care about cors issues.
+Front-end HTML/CSS/JS files can be served from any web server. **Easiest solution** is to use the [Express static](https://expressjs.com/en/starter/static-files.html) files serving option. Then you don't need care about cors issues and the apache proxy setup done earlier works out-of-the-box.
 
 But you can use the Apache server directly as well:
 
