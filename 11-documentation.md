@@ -229,6 +229,6 @@ authRouter.route('/me').get(authenticateToken, getMe);
 1. Create API documentation for your app using [apidoc](https://apidocjs.com/), Swagger or other similar tool of your own choice
    - install needed packages
    - generate documentation (for example to `docs` folder using npm script)
-   - serve the documentation within your app (user `express.static` middleware for serving the `docs` folder)
+   - serve the documentation within your app (use `express.static` middleware for serving the `docs` folder)
 
 **Returning:** No specific return is needed. The documentation should be available for your individual project.
