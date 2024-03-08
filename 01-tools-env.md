@@ -292,7 +292,7 @@ code analysis and identifying potential issues.
 
 ---
 
-### Setting up Vite for front-end (client) development
+### Setting up front-end (client) web development environment using Vite
 
 [Vite](https://vitejs.dev/guide/)
 
@@ -310,17 +310,19 @@ code analysis and identifying potential issues.
     npm run dev
     ```
 
-1. Open the preview URL in your browser and open developer tools
+1. Open the preview URL (<http://localhost:5173/>) in your browser and open developer tools (e.g. Chrome & [Chrome DevTools](https://developers.google.com/web/tools/chrome-devtools/))
 1. Open the project folder in VS Code
-1. To get started with you own web app
+1. To get started with a clean web app template:
    - edit or replace `index.html` file but do not remove `<script type="module" src="/main.js"></script>`
    - edit or replace `style.css` with your own styles
    - edit `main.js` file (note that the css file is imported in the js file instead of the html file `import './style.css';`). Everything else boilerplate code can be removed from the js file.
-   - remove `counter.js` and image files because they are not needed
+   - remove `counter.js` and image files because they are just examples
 
-#### Browser & debugging
+#### Publishing the website created with Vite
 
-- Chrome & [Chrome DevTools](https://developers.google.com/web/tools/chrome-devtools/)
+1. Stop the dev server (_ctrl-c_) if running
+1. Build the application `npm run build` 
+1. Copy all contents of `dist/` folder to a web server (e.g. into `public_html/` folder).
 
 ---
 

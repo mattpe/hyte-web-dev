@@ -329,18 +329,21 @@ Help for Linux usage:
    1. if you want that the app automatically reload on change (e.g. on next `git pull`), use the `--watch` flag.
    1. (optional) "pure" linux option could be using [systemd](https://nodesource.com/blog/running-your-node-js-app-with-systemd-part-1/) for creating a system process.
 
-#### Static UI files (Front-end)
+#### Publishing Front-end application (Client)
 
-Front-end HTML/CSS/JS files can be served from any web server. **Easiest solution** is to use the [Express static](https://expressjs.com/en/starter/static-files.html) files serving option. Then you don't need care about cors issues and the apache proxy setup done earlier works out-of-the-box.
+Front-end HTML/CSS/JS files can be served from any web server. **Easiest solution** is to use the [Express static](https://expressjs.com/en/starter/static-files.html) files serving option. Then you don't need care about cors issues and the apache proxy setup done earlier works out-of-the-box. For example when using Vite for front-end development:
 
-But you can use the Apache server directly as well:
+1. Open your Vite project in terminal
+1. Stop the Vite dev server (_ctrl-c_) if running
+1. Build the application `npm run build` 
+1. Copy all contents of `dist/` folder to you node application's `public/` folder on the server.
+
+**If** you want to use the Apache directly as a web server for static files:
 
 1. Change the owner of the web root folder such that no `sudo` permissions are needed when you edit the contents of the folder: `sudo chown <USERNAME>.<USERNAME> /var/www/html`
-1. Change the server url value in all front-end JS files: `http://localhost:3000` -> `https://your.server.azure.com/app`
-1. Upload/copy/clone your front-end files to the server's `/var/www/html/` directory
-1. Test: open a browser and visit `https://<your-ip-address-or-hostname>/`
-
-Some simple front-end examples how to access the REST API are found [here](./assets/example-ui/).
+2. Upload/copy/clone your front-end files to the server's `/var/www/html/` directory
+3. Update Apache config by enabling `DocumentRoot` and modifying proxy settings for Node app to use the sub url path version
+4. Test: open a browser and visit `https://<your-server-address>/` and `https://<your-server-address>/api/`
 
 #### Cross-Origin Resource Sharing (CORS)
 
