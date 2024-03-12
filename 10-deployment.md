@@ -333,17 +333,16 @@ Help for Linux usage:
 
 Front-end HTML/CSS/JS files can be served from any web server. **Easiest solution** is to use the [Express static](https://expressjs.com/en/starter/static-files.html) files serving option. Then you don't need care about cors issues and the apache proxy setup done earlier works out-of-the-box. For example when using Vite for front-end development:
 
-1. Open your Vite project in terminal
-1. Stop the Vite dev server (_ctrl-c_) if running
-1. Build the application `npm run build` 
+1. Build the app by following [these instructions](./01-tools-env.md#publishing-the-website-created-with-vite)
 1. Copy all contents of `dist/` folder to you node application's `public/` folder on the server.
+1. Test: open a browser and visit `https://<your-server-address>/` and `https://<your-server-address>/api/`
 
 **If** you want to use the Apache directly as a web server for static files:
 
 1. Change the owner of the web root folder such that no `sudo` permissions are needed when you edit the contents of the folder: `sudo chown <USERNAME>.<USERNAME> /var/www/html`
-2. Upload/copy/clone your front-end files to the server's `/var/www/html/` directory
-3. Update Apache config by enabling `DocumentRoot` and modifying proxy settings for Node app to use the sub url path version
-4. Test: open a browser and visit `https://<your-server-address>/` and `https://<your-server-address>/api/`
+1. Upload/copy/clone your front-end files to the server's `/var/www/html/` directory
+1. Update Apache config by enabling `DocumentRoot` and modifying proxy settings for Node app to use the sub url path version
+1. Test: open a browser and visit `https://<your-server-address>/` and `https://<your-server-address>/api/`
 
 #### Cross-Origin Resource Sharing (CORS)
 

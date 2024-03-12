@@ -7,7 +7,7 @@ Client-server architecture in web applications
 ```mermaid
 graph TD
 
-subgraph Client 
+subgraph Client
    A[HTML/CSS/JS user Interface] <--> B[JS client-side Logic]
    B --> C[Request to Server]
 end
@@ -215,45 +215,45 @@ code analysis and identifying potential issues.
 - can be combined with other tools like ESLint and Prettier to create a comprehensive code styling and formatting setup
   in your development workflow.
 
-    ```conf
-    # sample .editorconfig
-    
-    # Top-most EditorConfig file
-    root = true
-    
-    # File encoding
-    [*]
-    charset = utf-8
-    
-    # Indentation settings
-    [*.js]
-    indent_style = space
-    indent_size = 2
-    
-    [*.css]
-    indent_style = space
-    indent_size = 2
-    
-    [*.html]
-    indent_style = space
-    indent_size = 2
-    
-    # Line endings
-    [*]
-    end_of_line = lf
-    
-    # Trailing whitespace
-    [*]
-    trim_trailing_whitespace = true
-    
-    # New line at the end of the file
-    [*]
-    insert_final_newline = true
-    
-    # Maximum line length
-    [*.{js,css,html}]
-    max_line_length = 80
-    ```
+  ```conf
+  # sample .editorconfig
+
+  # Top-most EditorConfig file
+  root = true
+
+  # File encoding
+  [*]
+  charset = utf-8
+
+  # Indentation settings
+  [*.js]
+  indent_style = space
+  indent_size = 2
+
+  [*.css]
+  indent_style = space
+  indent_size = 2
+
+  [*.html]
+  indent_style = space
+  indent_size = 2
+
+  # Line endings
+  [*]
+  end_of_line = lf
+
+  # Trailing whitespace
+  [*]
+  trim_trailing_whitespace = true
+
+  # New line at the end of the file
+  [*]
+  insert_final_newline = true
+
+  # Maximum line length
+  [*.{js,css,html}]
+  max_line_length = 80
+  ```
 
 ### [Prettier](https://prettier.io/)
 
@@ -264,16 +264,16 @@ code analysis and identifying potential issues.
 - provides configuration options to customize the formatting rules according to project requirements.
 - helps maintain code readability and improves code maintainability by providing a consistent and clean codebase.
 
-    ```javascript
-    // sample .prettierrc.cjs
-    module.exports = {
-      semi: true,
-      singleQuote: true,
-      bracketSpacing: false,
-      singleQuote: true,
-      trailingComma: 'all',
-    };
-    ```
+  ```javascript
+  // sample .prettierrc.cjs
+  module.exports = {
+    semi: true,
+    singleQuote: true,
+    bracketSpacing: false,
+    singleQuote: true,
+    trailingComma: 'all',
+  };
+  ```
 
 ### [ESLint](https://eslint.org/)
 
@@ -298,17 +298,17 @@ code analysis and identifying potential issues.
 
 1. Create a new project with Vite in terminal
 
-    ```sh
-    # cd to your code folder
-    npm create vite@latest
-    # 1. type your project name
-    # 2. Select a framework: -> Vanilla 
-    # 3. Select a variant: -> Javascript
-    cd <project-name>
-    npm install
-    # start vite dev server
-    npm run dev
-    ```
+   ```sh
+   # cd to your code folder
+   npm create vite@latest
+   # 1. type your project name
+   # 2. Select a framework: -> Vanilla
+   # 3. Select a variant: -> Javascript
+   cd <project-name>
+   npm install
+   # start vite dev server
+   npm run dev
+   ```
 
 1. Open the preview URL (<http://localhost:5173/>) in your browser and open developer tools (e.g. Chrome & [Chrome DevTools](https://developers.google.com/web/tools/chrome-devtools/))
 1. Open the project folder in VS Code
@@ -321,10 +321,35 @@ code analysis and identifying potential issues.
 #### Publishing the website created with Vite
 
 1. Stop the dev server (_ctrl-c_) if running
-1. Build the application `npm run build` 
-1. Copy all contents of `dist/` folder to a web server (e.g. into `public_html/` folder).
+1. [Build](https://vitejs.dev/guide/build) the application `npm run build`
 
----
+    - If you have more html files than just `index.html`, you need to add them to [configurarion](https://vitejs.dev/guide/build#multi-page-app). Create a file called `vite.config.js` into your project's root folder:
+
+    ```js
+    // vite.config.js
+    import {resolve} from 'path';
+    import {defineConfig} from 'vite';
+
+    export default defineConfig({
+      build: {
+        rollupOptions: {
+          input: {
+            // List your html files here, e.g:
+            main: resolve(__dirname, 'index.html'),
+            home: resolve(__dirname, 'home.html'),
+          },
+        },
+      },
+      // Public base path could be set here too:
+      // base: '/~username/my-app/',
+    });
+    ```
+
+    - If you are using web server's root URL (like `https://example.com/`) as your website address this works out of the box
+    - If you are using a subfolder (like `https://users.metropolia.fi/~username/my-app/`), you need to set a [public base path](https://vitejs.dev/guide/build#public-base-path) for the app before building.
+      - Modify your build script in `package.json`: `"build": "vite build --base=/~username/my-app/",` or add the base path to the `vite.config.js` (see example above).
+      - Remember to run `npm run build` again after updating the config
+1. Copy all contents of `dist/` folder to the web server's public folder
 
 ## Code style and best practices
 
@@ -358,4 +383,4 @@ Some generic coding tips:
 - Separate UI from the application logic as much as possible. Avoid writing the whole application logic in event handlers.
 - Use `console.log()` / debugger & breakpoints. Or on the client also alert events can be used.
 - If the application refuses to work, step back and try to isolate the problematic
-part.
+  part.
