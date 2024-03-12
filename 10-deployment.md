@@ -334,8 +334,9 @@ Help for Linux usage:
 Front-end HTML/CSS/JS files can be served from any web server. **Easiest solution** is to use the [Express static](https://expressjs.com/en/starter/static-files.html) files serving option. Then you don't need care about cors issues and the apache proxy setup done earlier works out-of-the-box. For example when using Vite for front-end development:
 
 1. Build the app by following [these instructions](./01-tools-env.md#publishing-the-website-created-with-vite)
+   - **Note:** Remember to update your API connections (`fetch()` function calls) in your client code to use the real server's URL address instead of `localhost:3000`!
 1. Copy all contents of `dist/` folder to you node application's `public/` folder on the server.
-1. Test: open a browser and visit `https://<your-server-address>/` and `https://<your-server-address>/api/`
+2. Test: open a browser and visit `https://<your-server-address>/` and `https://<your-server-address>/api/`
 
 **If** you want to use the Apache directly as a web server for static files:
 
