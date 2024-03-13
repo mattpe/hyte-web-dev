@@ -137,10 +137,11 @@ Help for Linux usage:
 
    ![Basic example setup](assets/azure-vm-settings.png)
 
-   - Finally hit the _CREATE_ button and after successful deployment of the virtual machine go to the resources's _Overview_ page and configure the _DNS name_.
+   - Finally hit the _CREATE_ button and wait for the VM deployment to finish
+   - After successful deployment of the virtual machine go to the resources's _Overview_ page and configure the _DNS name_ for your public IP address.
    - Note: VM is paid by hour when the VM is running. In development use it's a good idea to stop the VM when you don't need it (start/stop buttons are found in Azure portal).
 
-1. Use SSH connection for managing your VM (`ssh username@PUBLIC_IP/YOUR_DOMAIN_NAME` in terminal/git bash or use e.g. [Putty](https://www.putty.org/))
+1. Use SSH connection for managing your VM (`ssh username@PUBLIC_IP/YOUR_DNS_NAME` in terminal/git bash or use e.g. [Putty](https://www.putty.org/))
 
    - Optional: use public key authentication instead of username/password: [Instructions](https://www.digitalocean.com/community/tutorials/how-to-set-up-ssh-keys-on-ubuntu-22-04)
 
@@ -242,7 +243,7 @@ Help for Linux usage:
 
    ```bash
    curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash - &&\
-   sudo apt-get install -y nodejs
+   sudo apt install -y nodejs
    # check that the installed tools are working:
    node -v
    npm -v
@@ -266,6 +267,7 @@ Help for Linux usage:
         ...
 
         # Choose only one of the following options:
+
         # conf for URL subpath, e.g.: https://myserver.example.com/api/ <-> localhost:3000
         #ProxyPreserveHost On
         #ProxyPass /api/ http://127.0.0.1:3000/
@@ -301,7 +303,7 @@ Help for Linux usage:
    1. `git clone <your-github-repo-url-here>` (or copy your back-end app to your home folder on the server exluding the contents of `node_modules` & `uploads` folders)
    1. Go to the app directory: `cd <my-app>`
    1. If you cloned the repo, make sure that you are in the right branch (`git checkout <branchname>` if not)
-   1. Install your dependencies: `npm install --production`
+   1. Install your dependencies: `npm install --production` (`--production` flag is used to avoid installing development dependencies if not needed on deployment server)
    1. Create/edit `.env` file (see `.env.sample`) with your db credentials (you set in [MariaDB](#mariadb-database-server)) and other settings:
 
       ```conf
@@ -310,6 +312,8 @@ Help for Linux usage:
       DB_PASSWORD=<your-db-user_password>
       DB_NAME=<your-db-name>
       JWT_SECRET=somesecuresecrethere
+      JWT_EXPIRES_IN=1d
+      # and other settings that you may have in your app
       ...
       ```
 
@@ -336,7 +340,7 @@ Front-end HTML/CSS/JS files can be served from any web server. **Easiest solutio
 1. Build the app by following [these instructions](./01-tools-env.md#publishing-the-website-created-with-vite)
    - **Note:** Remember to update your API connections (`fetch()` function calls) in your client code to use the real server's URL address instead of `localhost:3000`!
 1. Copy all contents of `dist/` folder to you node application's `public/` folder on the server.
-2. Test: open a browser and visit `https://<your-server-address>/` and `https://<your-server-address>/api/`
+1. Test: open a browser and visit `https://<your-server-address>/` and `https://<your-server-address>/api/`
 
 **If** you want to use the Apache directly as a web server for static files:
 
