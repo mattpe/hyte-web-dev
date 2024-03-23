@@ -182,7 +182,9 @@ node my-script.js
   across a project.
 - Formatters handle tasks such as indentation, spacing, and line breaks, making code more readable and easier to
   understand.
-- Linters analyze code for potential errors, bugs, and violations of coding conventions.
+- Linters have two categories of rules:
+  - **Formatting rules**: enforce code style and formatting conventions. (Formatter fixes these automatically.)
+  - **Code quality rules**: analyze code for potential errors, bugs, and violations of coding standards and conventions. (Formatter does nothing to help with those kind of rules.)
 - Linters enforce best practices, identify potential issues, and provide suggestions for improvement.
 - Formatters and linters together play a vital role in promoting code quality, reducing bugs, and facilitating
   collaboration among developers working on the same project.
@@ -215,45 +217,45 @@ code analysis and identifying potential issues.
 - can be combined with other tools like ESLint and Prettier to create a comprehensive code styling and formatting setup
   in your development workflow.
 
-  ```conf
-  # sample .editorconfig
+```conf
+# sample .editorconfig
 
-  # Top-most EditorConfig file
-  root = true
+# Top-most EditorConfig file
+root = true
 
-  # File encoding
-  [*]
-  charset = utf-8
+# File encoding
+[*]
+charset = utf-8
 
-  # Indentation settings
-  [*.js]
-  indent_style = space
-  indent_size = 2
+# Indentation settings
+[*.{js,mjs}]
+indent_style = space
+indent_size = 2
 
-  [*.css]
-  indent_style = space
-  indent_size = 2
+[*.css]
+indent_style = space
+indent_size = 2
 
-  [*.html]
-  indent_style = space
-  indent_size = 2
+[*.html]
+indent_style = space
+indent_size = 2
 
-  # Line endings
-  [*]
-  end_of_line = lf
+# Line endings
+[*]
+end_of_line = lf
 
-  # Trailing whitespace
-  [*]
-  trim_trailing_whitespace = true
+# Trailing whitespace
+[*]
+trim_trailing_whitespace = true
 
-  # New line at the end of the file
-  [*]
-  insert_final_newline = true
+# New line at the end of the file
+[*]
+insert_final_newline = true
 
-  # Maximum line length
-  [*.{js,css,html}]
-  max_line_length = 80
-  ```
+# Maximum line length
+[*.{js,mjs,css,html}]
+max_line_length = 80
+```
 
 ### [Prettier](https://prettier.io/)
 
@@ -264,16 +266,16 @@ code analysis and identifying potential issues.
 - provides configuration options to customize the formatting rules according to project requirements.
 - helps maintain code readability and improves code maintainability by providing a consistent and clean codebase.
 
-  ```javascript
-  // sample .prettierrc.cjs
-  module.exports = {
-    semi: true,
-    singleQuote: true,
-    bracketSpacing: false,
-    singleQuote: true,
-    trailingComma: 'all',
-  };
-  ```
+```javascript
+// sample .prettierrc.cjs
+module.exports = {
+  semi: true,
+  singleQuote: true,
+  bracketSpacing: false,
+  singleQuote: true,
+  trailingComma: 'all',
+};
+```
 
 ### [ESLint](https://eslint.org/)
 
@@ -382,5 +384,4 @@ Some generic coding tips:
 - Trying to construct the application from multiple pieces whose correct functioning is unproven is a very risky strategy. Try out the functions you write using different inputs (even illegal) and check that they behave as expected.
 - Separate UI from the application logic as much as possible. Avoid writing the whole application logic in event handlers.
 - Use `console.log()` / debugger & breakpoints. Or on the client also alert events can be used.
-- If the application refuses to work, step back and try to isolate the problematic
-  part.
+- If the application refuses to work, step back and try to isolate the problematic part.
