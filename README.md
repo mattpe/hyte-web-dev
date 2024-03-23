@@ -38,4 +38,8 @@ Week 7
 
 Week 8
 
-12. Course exam and finalizing individual project assignment
+Course exam and finalizing individual project assignment
+
+Extra
+
+12. [Kubios cloud integration](12-kubios.md)
