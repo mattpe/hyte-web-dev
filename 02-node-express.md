@@ -21,7 +21,7 @@ Prerequicities: Toolchain installed.
         'es2021': true,
         'node': true,
       },
-      'extends': 'google',0
+      'extends': 'google',
       'overrides': [],
       'parserOptions': {
         'ecmaVersion': 'latest',
