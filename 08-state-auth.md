@@ -269,7 +269,7 @@ In web applications, authentication is typically done by verifying a username an
 - Read: [Salted Password Hashing - Doing it Right](https://crackstation.net/hashing-security.htm).
 
 1. Install [bcryptjs](https://www.npmjs.com/package/bcryptjs): `npm i bcryptjs` ([bcrypt](https://www.npmjs.com/package/bcrypt) is another option but it has more dependencies)
-1. Update user creation function in _user model_ to use bcrypt and implement password hashing (asynchronously)
+1. Update user creation function in _user controller_ to use bcrypt and implement password hashing (asynchronously)
    - `import bcrypt from 'bcryptjs';`
    - Generate a salt: `const salt = await bcrypt.genSalt(10);`
    - Hash a password: `const hashedPassword = await bcrypt.hash(myPlaintextPassword, salt);`
