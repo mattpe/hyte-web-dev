@@ -279,4 +279,25 @@ app.post('/api/resource', (req, res) => {
 
 ## Week assignment 1 - Getting started with node.js
 
-Follow the teacher's example (link in Oma) and implement TODOs in the example code. See assignment details in Oma.
+Follow the teacher's example (link in Oma) and implement TODOs in the example code. See assignment instructions in Oma and submit there.
+
+### Contents
+
+1. Create a node.js Express project containing:
+   - _eslint_ setup
+   - _package.json_
+   - _readme.md_
+   - _nodemon_ for running the dev environment (use local npm package and start with npm script)
+   - git repo: include `.gitignore` and set a remote repo in Github, create and checkout a new branch `git checkout -b week1`
+1. Implement a (dummy) REST API including following resources/endpoints:
+   - read some data from server (send response in json format)
+   - send some data to server
+   - delete data (just a dummy functionality, test error response too)
+   - modify something (just a dummy functionality, test error response too)
+   - send 404 response for non-existing resources
+1. Adapt HTTP standards:
+   - use appropriate [HTTP methods](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods) for requests
+   - set correct [status codes](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status) and [Content-Type](https://developer.mozilla.org/en-US/docs/Learn/Server-side/Configuring_server_MIME_types) headers to responses
+1. Test with Postman or similar
+1. Create a repo in Github and push your code to the repo 
+1. Extra: Add more funtionalities to your REST API
