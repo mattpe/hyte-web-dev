@@ -5,37 +5,55 @@
 
 ## Setting up the first project
 
-Prerequicities: Toolchain installed.
+Prerequicities: Toolchain installed (see [01-tools-env.md](01-tools-env.md)).
 
-1. Create a new folder for your project
-1. Open the project folder in your code editor
-1. Open terminal (command-line) in the project folder
-1. Run `npm init` inside the project folder, wizard needs an interactive shell, use terminal on MacOS/Linux or Git Bash/Powershell on Windows
-1. Setup eslint:
-    - install packages `npm install --save-dev eslint eslint-config-google`
-    - add `.eslintrc.cjs` file with following content:
+1. Create a new folder for your project.
+1. Open the project folder in your code editor.
+1. Open a terminal (command-line) in the project folder.
+1. Run `npm init` inside the project folder. The wizard needs an interactive shell, use terminal on MacOS/Linux or Git Bash/Powershell on Windows.
+1. Setup [ESLint](https://eslint.org/) and [Prettier](https://prettier.io/) for code linting and formatting (Read more about the differences and roles of the tools on [LogRocket Blog](https://blog.logrocket.com/using-prettier-eslint-javascript-formatting/) and [ESLint blog](https://eslint.org/blog/2023/10/deprecating-formatting-rules/)).
 
-    ```js
-    module.exports = {
-      'env': {
-        'es2021': true,
-        'node': true,
-      },
-      'extends': 'google',
-      'overrides': [],
-      'parserOptions': {
-        'ecmaVersion': 'latest',
-        'sourceType': 'module',
-      },
-      'rules': {
-        'indent': ['warn', 2],
-        'new-cap': ['error', {capIsNewExceptions: ['Router']}],
-      },
-    };
-    ```
+   - Install npm packages:
 
-1. Install `nodemon` as a development dependency: `npm install --save-dev nodemon`
-1. Review `package.json`, add a script for starting your app with nodemon and type property
+   ```sh
+   # --save-exact makes sure that everyone in the project gets the exact same version of Prettier.
+   npm install --save-dev --save-exact prettier
+   npm install --save-dev eslint @eslint/js eslint-config-prettier globals
+   ```
+
+   - Add `eslint.config.js` file with the following content:
+
+   ```js
+   import globals from 'globals';
+   import js from '@eslint/js';
+
+   export default [
+     {
+       languageOptions: {
+         ecmaVersion: 2021,
+         sourceType: 'module',
+         globals: {...globals.node},
+       },
+     },
+     js.configs.recommended,
+   ];
+   ```
+
+   - Add `.prettierrc.cjs` file with the following content:
+
+   ```js
+   // sample .prettierrc.cjs
+   module.exports = {
+     semi: true,
+     singleQuote: true,
+     bracketSpacing: false,
+     trailingComma: 'all',
+   };
+   ```
+
+1. Install `nodemon` as a development dependency: `npm install --save-dev nodemon`.
+   - a tool that helps develop Node.js based applications by automatically restarting the node application when file changes in the directory are detected.
+1. Review `package.json`, add a script for starting your app with nodemon, and add `type` property:
 
    ```json
    ...
@@ -45,7 +63,7 @@ Prerequicities: Toolchain installed.
      ...
    ```
 
-1. Create a `.gitignore` file and add `node_modules` to it, keep it alway up to date
+1. Initialize a git repository: `git init` and create a `.gitignore` file and add at least `node_modules` to it. Remember to keep the file always up to date when adding files you don't want to include version control!
 
     ```gitignore
     .vscode
@@ -71,7 +89,7 @@ Prerequicities: Toolchain installed.
    });
    ```
 
-1. Write `.editorconfig` and `.prettierrc.js` files according to the examples (see [01-tools-env.md](01-tools-env.md))
+1. Create `.editorconfig` file according to the example (see [01-tools-env.md](01-tools-env.md))
 1. Test your initial app: `npm run dev`
 1. Create a new local repository and setup a remote repository on GitHub and push your current locat project to Github.
 
@@ -188,18 +206,9 @@ app.listen(port, hostname, () => {
 ### Serving static files
 
 1. Create a folder `src/public` and add any static files into it, e.g. html, css, js, images, etc.
-1. Serve the files: `app.use('/static', express.static(path.join(__dirname, 'public')));`
-1. Access the files in `public` folder at `http://localhost:3000/static/...`
-
-Note: If using ES modules (`import` statements instead of CommonJS `require()`) and `path.join()` when serving static files, you don't have `__dirname` variable by default. You need set it manually:
-
-```js
-import path from 'path';
-import {fileURLToPath} from 'url';
-...
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-```
+1. Serve the files: `app.use(express.static('public'));`
+   - or when using different folder name and http path: `app.use('/static', express.static('public'));`
+1. Access the files in `public` folder at `http://localhost:3000/public/...` or `http://localhost:3000/static/...`
 
 ### Serving response in JSON format (for client-side rendering, CSR)
 
