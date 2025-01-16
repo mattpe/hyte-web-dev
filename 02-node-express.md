@@ -90,8 +90,8 @@ Prerequicities: Toolchain installed (see [01-tools-env.md](01-tools-env.md)).
    ```
 
 1. Create `.editorconfig` file according to the example (see [01-tools-env.md](01-tools-env.md))
-1. Test your initial app: `npm run dev`
-1. Create a new local repository and setup a remote repository on GitHub and push your current locat project to Github.
+1. Test your initial app: `npm run dev` (to stop the development server hit _ctrl-c_)
+1. Create a new local repository and setup a remote repository on GitHub and push your current local project to Github.
 
     ```sh
     git init
@@ -299,5 +299,5 @@ Follow the teacher's example (link in Oma) and implement TODOs in the example co
    - use appropriate [HTTP methods](https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods) for requests
    - set correct [status codes](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status) and [Content-Type](https://developer.mozilla.org/en-US/docs/Learn/Server-side/Configuring_server_MIME_types) headers to responses
 1. Test with Postman or similar
-1. Create a repo in Github and push your code to the repo 
+1. Commit your changes (`git add .` & `git commit -m "describe you changes here"`) and push your `week1` branch to the remote repo in Github (`git push -u origin week1`)
 1. Extra: Add more funtionalities to your REST API
