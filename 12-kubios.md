@@ -24,7 +24,7 @@ Technically, the client sends requests to the backend server. The backend server
     KUBIOS_USER_AGENT=YOUR_APP_NAME_HERE
     ```
 
-1. Add a function to `userModel.mjs` to check if user email already exists in local database
+1. Add a function to `userModel.js` to check if user email already exists in local database
 
     ```js
     const selectUserByEmail = async (email) => {
@@ -47,7 +47,7 @@ Technically, the client sends requests to the backend server. The backend server
     };
     ```
 
-1. Create a new auth controller to use the Kubios cloud user credentials for authentication `kubios-auth-controller.mjs`:
+1. Create a new auth controller to use the Kubios cloud user credentials for authentication `kubios-auth-controller.js`:
 
     ```js
     /**
@@ -67,12 +67,12 @@ Technically, the client sends requests to the backend server. The backend server
     import jwt from 'jsonwebtoken';
     import fetch from 'node-fetch';
     import {v4} from 'uuid';
-    import {customError} from '../middlewares/error-handler.mjs';
+    import {customError} from '../middlewares/error-handler.js';
     import {
       insertUser,
       selectUserByEmail,
       selectUserById,
-    } from '../models/user-model.mjs';
+    } from '../models/user-model.js';
 
     // Kubios API base URL should be set in .env
     const baseUrl = process.env.KUBIOS_API_URI;
@@ -230,23 +230,23 @@ Technically, the client sends requests to the backend server. The backend server
     export {postLogin, getMe};
     ```
 
-1. Replace existing auth controller with new one in `authRouter.mjs`:
+1. Replace existing auth controller with new one in `authRouter.js`:
 
     ```js
-    // import {getMe, postLogin} from '../controllers/auth-controller.mjs';
-    import {getMe, postLogin} from '../controllers/kubios-auth-controller.mjs';
+    // import {getMe, postLogin} from '../controllers/auth-controller.js';
+    import {getMe, postLogin} from '../controllers/kubios-auth-controller.js';
     ```
 
 1. Test login with Postman using your Kubios cloud user account
 
 ## Example of requesting data from Kubios cloud
 
-1. Add a new controller for Kubios cloud data `kubios-controller.mjs`:
+1. Add a new controller for Kubios cloud data `kubios-controller.js`:
 
     ```js
     import 'dotenv/config';
     import fetch from 'node-fetch';
-    // import {customError} from '../middlewares/error-handler.mjs';
+    // import {customError} from '../middlewares/error-handler.js';
 
     // Kubios API base URL should be set in .env
     const baseUrl = process.env.KUBIOS_API_URI;
@@ -302,12 +302,12 @@ Technically, the client sends requests to the backend server. The backend server
     export {getUserData, getUserInfo};
     ```
 
-1. Add router for Kubios controller `kubios-router.mjs`:
+1. Add router for Kubios controller `kubios-router.js`:
 
     ```js
     import express from 'express';
-    import {authenticateToken} from '../middlewares/authentication.mjs';
-    import {getUserData, getUserInfo} from '../controllers/kubios-controller.mjs';
+    import {authenticateToken} from '../middlewares/authentication.js';
+    import {getUserData, getUserInfo} from '../controllers/kubios-controller.js';
 
     const kubiosRouter = express.Router();
 

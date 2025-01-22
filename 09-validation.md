@@ -52,7 +52,7 @@ Input data validation in web applications is a critical process that ensures the
   - What about a rule like: "_confirm_password_: required, must match password"? - not needed on server-side, important on client-side
 
 1. Install `express-validator`
-1. Example database query function in _user-model.mjs_:
+1. Example database query function in _user-model.js_:
 
     ```js
     /**
@@ -98,7 +98,7 @@ Input data validation in web applications is a critical process that ensures the
 
     ```js
     import {validationResult} from 'express-validator';
-    import {addUser} from '../models/user-model.mjs';
+    import {addUser} from '../models/user-model.js';
 
     const postUser = async (req, res) => {
       // validation errors can be retrieved from the request object (added by express-validator middleware)
@@ -174,7 +174,7 @@ Input data validation in web applications is a critical process that ensures the
   - If the error handler middleware is called, the next middleware in the chain is skipped
   - Error handler middleware should be the last middleware in the chain
 
-1. Add error handler middleware functions to _middlewares/middlewares.mjs_ (or create a new file _middlewares/error-handler.mjs_):
+1. Add error handler middleware functions to _middlewares/middlewares.js_ (or create a new file _middlewares/error-handler.js_):
 
     ```js
     ...
@@ -217,9 +217,9 @@ Input data validation in web applications is a critical process that ensures the
    - Use `next()` to pass the error to the error handler middleware, some examples:
 
     ```js
-    // user-controller.mjs
+    // user-controller.js
     import {validationResult} from 'express-validator';
-    import {addUser} from '../models/user-model.mjs';
+    import {addUser} from '../models/user-model.js';
 
     const postUser = async (req, res, next) => {
       // validation errors can be retrieved from the request object (added by express-validator middleware)
@@ -239,7 +239,7 @@ Input data validation in web applications is a critical process that ensures the
     ```
 
     ```js
-    // entry-controller.mjs
+    // entry-controller.js
     const postEntry = async (req, res, next) => {
       const errors = validationResult(req);
       // check if any validation errors

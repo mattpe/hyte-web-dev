@@ -104,7 +104,7 @@ _src/index.js:_
 
 ```js
 ...
-import entryRouter from './routes/entry-router.mjs';
+import entryRouter from './routes/entry-router.js';
 
 ...
 
@@ -115,7 +115,7 @@ app.use('/api/entries', entryRouter);
 
 ```
 
-_src/routes/entry-router.mjs:_
+_src/routes/entry-router.js:_
 
 ```js
 import express from 'express';
@@ -125,7 +125,7 @@ import {
   postEntry,
   putEntry,
   deleteEntry,
-} from '../controllers/entry-controller.mjs';
+} from '../controllers/entry-controller.js';
 
 const entryRouter = express.Router();
 
@@ -139,10 +139,10 @@ entryRouter.route('/:id')
 export default entryRouter;
 ```
 
-_src/controllers/entry-controller.mjs:_
+_src/controllers/entry-controller.js:_
 
 ```js
-import {addEntry, findEntryById, listAllEntries} from "../models/entry-model.mjs";
+import {addEntry, findEntryById, listAllEntries} from "../models/entry-model.js";
 
 const getEntries = (req, res) => {
   res.json(listAllEntries());
@@ -182,7 +182,7 @@ const deleteEntry = (req, res) => {
 export {getEntries, getEntryById, postEntry, putEntry, deleteEntry};
 ```
 
-_src/models/entry-model.mjs:_
+_src/models/entry-model.js:_
 
 ```js
 // temporal mock data for testing, should be replaced with real data from DB
@@ -289,7 +289,7 @@ If running the front-end and back-end on different servers, you need to take car
     ```
 
 1. Study & install [mysql2](https://github.com/sidorares/node-mysql2#readme) package
-1. Create a new file `src/utils/database.mjs` and add the following code to it:
+1. Create a new file `src/utils/database.js` and add the following code to it:
 
     ```js
     import mysql from 'mysql2';
@@ -312,12 +312,12 @@ If running the front-end and back-end on different servers, you need to take car
 
 JavaScript variables in SQL queries should be handled using [prepared statements](https://github.com/sidorares/node-mysql2#using-prepared-statements) to prevent SQL injection attacks.
 
-_entry-model.mjs:_
+_entry-model.js:_
 
 ```js
 // Note: db functions are async and must be called with await from the controller
 // How to handle errors in controller?
-import promisePool from '../utils/database.mjs';
+import promisePool from '../utils/database.js';
 
 const listAllEntries = async () => {
   try {
@@ -359,10 +359,10 @@ const addEntry = async (entry) => {
 export {listAllEntries, findEntryById, addEntry};
 ```
 
-_entry-controller.mjs:_
+_entry-controller.js:_
 
 ```js
-import {listAllEntries, findEntryById, addEntry} from "../models/entry-model.mjs";
+import {listAllEntries, findEntryById, addEntry} from "../models/entry-model.js";
 
 const getEntries = async (req, res) => {
   const result = await listAllEntries();

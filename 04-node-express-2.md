@@ -7,7 +7,7 @@
 
 1. Continue the Node project started last week (`git checkout week1`). Create a new git branch `week2` and choose it (`git checkout -b week2`).
 1. Make sure you have all packages (listed as dependencies in `package.json`) installed (`npm install`).
-1. Create a new module file `src/items.mjs`
+1. Create a new module file `src/items.js`
    - move the `items` mock data array from `src/index.js` to the new module file
    - create a new function `getItems()` in the module and export it
 
@@ -21,19 +21,19 @@
    - import the `getItems()` function in `src/index.js` and use it to get the items data by modifying the `GET /items` endpoint
 
       ```js
-      import {getItems} from './items.mjs';
+      import {getItems} from './items.js';
       ...
       app.get('/items', getItems);
       ```
 
-   - do the same for the `GET /items/:id` and `POST /items` endpoints (create functions in `src/items.mjs` and import and use them in `src/index.js`)
+   - do the same for the `GET /items/:id` and `POST /items` endpoints (create functions in `src/items.js` and import and use them in `src/index.js`)
 
 1. Implement a functional [simple example REST API endpoints](02-node-express.md#simple-example-of-rest-api-documentation) for the item mock data in `src/items.js`. For example:
    - Adding an item should push a new item object to the mock data array
      - See the [example](02-node-express.md#reading-data-from-request-body) of reading POST body data in JSON format 
    - Deleting an item should delete the item object with matching id
    - Invalid http requests should be responded with appropriate messages and status codes
-1. Create a new module file `src/users.mjs` and add the following mock data to it:
+1. Create a new module file `src/users.js` and add the following mock data to it:
 
     ```js
     const users = [
