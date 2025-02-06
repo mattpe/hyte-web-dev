@@ -432,13 +432,13 @@ export {getEntries, getEntryById, postEntry, putEntry, deleteEntry};
    - Implement all of the following endpoints:
      - `GET /api/entries` - list all diary entries
      - `GET /api/entries/:id` - get diary entry by id
-     - `PUT /api/entries/:id` - update a diary entry
-     - `DELETE /api/entries/:id` - delete entry
+     - `PUT /api/entries/:id` - update a diary entry (optional)
+     - `DELETE /api/entries/:id` - delete entry (optional)
      - `GET /api/users` - list all users
      - `GET /api/users/:id` - get user by id
      - `POST /api/users` - add a new user
-     - `PUT /api/users/:id` - update user
-     - `DELETE /api/users/:id` - delete user
+     - `PUT /api/users/:id` - update user (optional)
+     - `DELETE /api/users/:id` - delete user (optional)
 1. Extra: Design and implement endpoints for _medications_, _exercises_ or your own custom resource
    - Think about what the user of application would need to do with the data
    - Describe your implementations and the use cases for it
