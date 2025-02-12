@@ -179,7 +179,7 @@ In web applications, authentication is typically done by verifying a username an
       const authHeader = req.headers['authorization'];
       const token = authHeader && authHeader.split(' ')[1];
       console.log('token', token);
-      if (token == null) {
+      if (token == undefined) {
         return res.sendStatus(401);
       }
       try {
