@@ -263,6 +263,66 @@ Input data validation in web applications is a critical process that ensures the
     };
     ...
     ```
+  - or instead of handling the validation error in every controller where needed, you can create a generic validation error handler middleware and use it in the routes:
+
+    ```js
+    // middlewares/error-handler.js
+    /**
+    * Custom middleware for handling and formatting validation errors
+    * @param {object} req - request object
+    * @param {object} res - response object
+    * @param {function} next - next function
+    * @return {*} next function call
+    */
+    const validationErrorHandler = (req, res, next) => {
+      const errors = validationResult(req, {strictParams: ['body']});
+      if (!errors.isEmpty()) {
+        // console.log('validation errors', errors.array({onlyFirstError: true}));
+        const error = customError('Bad Request', 400);
+        error.errors = errors.array({onlyFirstError: true}).map((error) => {
+          return {field: error.path, message: error.msg};
+        });
+        return next(error);
+      }
+      next();
+    };
+    ...
+
+    ---
+
+    // example usage in user registration route
+    import {validationErrorHandler} from '../middlewares/error-handler.js';
+    ...
+    userRouter.route('/').post(
+      body('username', 'username must be 3-20 characters long and alphanumeric')
+        .trim()
+        .isLength({min: 3, max: 20})
+        .isAlphanumeric(),
+      body('password', 'minimum password length is 8 characters')
+        .trim()
+        .isLength({min: 8, max: 128}),
+      body('email', 'must be a valid email address')
+        .trim()
+        .isEmail()
+        .normalizeEmail(),
+      validationErrorHandler,
+      postUser,
+    );
+    ```
+
+    ```js
+    // user-controller.js
+    import {validationErrorHandler} from '../middlewares/error-handler.js';
+    ...
+    userRouter.route('/')
+      .get(getUsers)
+      .post(
+        validationErrorHandler,
+        postUser
+      );
+    ...
+    ```
+
 
 1. Test the error handler by sending invalid requests to the API, for example:
    - `POST /api/users` with an empty request body
