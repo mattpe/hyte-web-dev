@@ -263,7 +263,8 @@ Input data validation in web applications is a critical process that ensures the
     };
     ...
     ```
-  - or instead of handling the validation error in every controller where needed, you can create a generic validation error handler middleware and use it in the routes:
+
+   - or instead of handling the validation errors in every controller where needed, you can create a generic validation error handler middleware and use it in the routes:
 
     ```js
     // middlewares/error-handler.js
@@ -324,10 +325,11 @@ Input data validation in web applications is a critical process that ensures the
     ```
 
 
-1. Test the error handler by sending invalid requests to the API, for example:
+1. Finally, test the error handler by sending different kind of invalid requests to the API, for example:
    - `POST /api/users` with an empty request body
+   - `POST /api/users` with invalid email address/username/password
    - `POST /api/entries` with an empty request body
-   - `POST /api/entries` with invalid field values
+   - `POST /api/entries` with some invalid field values
 
 ---
 
