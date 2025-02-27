@@ -279,7 +279,8 @@ Input data validation in web applications is a critical process that ensures the
       const errors = validationResult(req, {strictParams: ['body']});
       if (!errors.isEmpty()) {
         // console.log('validation errors', errors.array({onlyFirstError: true}));
-        const error = customError('Bad Request', 400);
+        const error = new Error('Bad Request');
+        error.status = 400;
         error.errors = errors.array({onlyFirstError: true}).map((error) => {
           return {field: error.path, message: error.msg};
         });
@@ -323,7 +324,6 @@ Input data validation in web applications is a critical process that ensures the
       );
     ...
     ```
-
 
 1. Finally, test the error handler by sending different kind of invalid requests to the API, for example:
    - `POST /api/users` with an empty request body
