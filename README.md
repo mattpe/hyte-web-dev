@@ -30,11 +30,10 @@ Week 5
 Week 6
 
 9. [Input validation and error handling](09-validation.md)
-10. [Deployment](10-deployment.md)
 
 Week 7
 
-11. [REST API Documentation](11-documentation.md)
+10. [REST API Documentation](11-documentation.md) & Individual project assignment work
 
 Week 8
 
@@ -42,4 +41,5 @@ Course exam and finalizing individual project assignment
 
 Extra
 
+11. [Deployment](10-deployment.md)
 12. [Kubios cloud integration](12-kubios.md)
