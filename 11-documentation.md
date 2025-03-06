@@ -48,12 +48,13 @@ One example of well-made API docs: [Stripe API Reference](https://stripe.com/doc
 
 1. Install apidoc package: `npm install apidoc`
 1. Add apidoc script to `package.json`, for example: `"apidoc": "apidoc -i src/ -o docs/"`
-1. Add apidoc configuration to `package.json`:
+1. Add some apidoc configuration to `package.json`, for example:
 
    ```json
    ...
    "apidoc": {
      "title": "My API docs",
+     "name": "My API docs",
      "url": "https://example.com/api/v1",
      "order": [
        "Authentication",
@@ -63,11 +64,11 @@ One example of well-made API docs: [Stripe API Reference](https://stripe.com/doc
    ...
    ```
 
-   - or create a separate config file: `apidoc.json`:
+   - or create a separate config file: `apidoc.json`, example of a more detailed configuration, where you can define the order of the endpoints, custom header and footer (in this case using separate markdown files) and other options:
 
      ```json
      {
-       "name": "apidoc-example",
+       "name": "My apidoc example",
        "version": "0.3.0",
        "description": "My apiDoc example project",
        "title": "Custom apiDoc browser title",
@@ -147,8 +148,8 @@ const authRouter = express.Router();
  *
  * @apiDescription Sign in and get an authentication token for the user.
  *
- * @apiParam {String} username Username of the user.
- * @apiParam {String} password Password of the user.
+ * @apiBody {String} username Username of the user.
+ * @apiBody {String} password Password of the user.
  *
  * @apiParamExample {json} Request-Example:
  *    {
