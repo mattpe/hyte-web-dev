@@ -1,13 +1,39 @@
 # Express Server Integration to Kubios cloud
 
-The idea is to combine the Kubios cloud API data with the local database data. The Kubios cloud API is used for authentication and data analysis. The local database is used for storing user data and other data that is not stored in the Kubios cloud.
+The idea is to combine the Kubios cloud API data with the local database data. The Kubios cloud API is used for authentication and data analysis. The local database is used for storing user data and other data that is not stored in the Kubios cloud and your appllication needs.
 
-Technically, the client sends requests to the backend server. The backend server acts as a proxy and forwards the requests to the Kubios cloud API. The backend server also stores the client id (api key) and other sensitive information. The client does not need to know the Kubios cloud API details. CORS issues are also avoided.
+Technically, the client sends requests to the backend server. The backend server acts as a proxy and forwards the requests to the Kubios cloud API. The backend server also stores the client id (api key) and other sensitive information. The client does not need to store the Kubios cloud API details. CORS issues with the Kubios API are also avoided.
+
+```mermaid
+graph TD
+  subgraph Web Client
+    A1[HTML/CSS/JS]
+  end
+
+  subgraph Server 
+    B1[Node.js + Express application]
+    B2[Database]
+  end
+
+    C1[Kubios Cloud API]
+
+    D1[Kubios Mobile App]
+
+  %% Web app interactions
+  A1 <-- HTTP --> B1
+  B1 -- HTTP requests --> C1
+  C1 -- responses (e.g: id_token, user data) --> B1
+  B1 -- token (user_id, id_token) --> A1
+  B1 <--> B2
+  
+  %% Mobile app interactions
+  D1 -- HTTP (measurements) --> C1
+```
 
 ## Links
 
 - [Kubios Cloud](https://www.kubios.com/kubios-cloud/)
-- [Kubios Cloud API documentation](https://analysis.kubioscloud.com/v2/portal/documentation/index.html)
+- [Kubios Cloud API documentation](https://analysis.kubioscloud.com/v2/portal/documentation/index.html) (login with your kubios account)
 
 ## Implement Login using Kubios cloud
 
