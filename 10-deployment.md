@@ -49,18 +49,25 @@ IaaS is like leasing/buying a plot of land - you have full control over the land
 
 ## Security considerations
 
-When deploying applications to a server environment, security is a critical concern. Here are some key security considerations for server-side applications:
+When deploying applications to a (production) server environment, security is a critical concern. Here are some tips and best practices to ensure the security of your application:
 
-1. **[HTTPS](https://en.wikipedia.org/wiki/HTTPS) (SSL/TLS) for Communication**
-   - HTTP over [TLS/SSL](https://en.wikipedia.org/wiki/Transport_Layer_Security) (TLS is the new progression of SSL but the _term_ SSL is still generally used)
-   - [SSL certificate](https://www.kaspersky.com/resource-center/definitions/what-is-a-ssl-certificate) _authenticates_ a website's identity and enables an encrypted connection
-   - Protection of the _privacy_ and _integrity_ of the exchanged data
-   - Always use HTTPS to encrypt data in transit and protect against eavesdropping, man-in-the-middle attacks, and data tampering.
-   - All unsecure HTTP connections (port 80) should be automatically redirected to HTTPS (port 443) by using [HTTP status codes](https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html), the 3XX codes are redirect, 301 means Moved Permanently.
-   - (Typically, for localhost development environments secure connections are not needed)
+1. **Keep Software Up to Date**
+   - Regularly update your server's operating system, web server software, database server, and any libraries or frameworks used in your application to patch known vulnerabilities.
+   - Use package managers (e.g., `apt`, `yum`, `npm`) to keep software up to date.
+1. **Secure Data Transmission**
+   - Avoid exposing sensitive information in the URL; use request headers or the request body for transmitting sensitive data.
+   - Be cautious with query parameters and ensure they do not expose sensitive information.
+   - Use **[HTTPS](https://en.wikipedia.org/wiki/HTTPS)**
+     - HTTP over [TLS/SSL](https://en.wikipedia.org/wiki/Transport_Layer_Security) (TLS is the new progression of SSL but the _term_ SSL is still generally used)
+     - [SSL certificate](https://www.kaspersky.com/resource-center/definitions/what-is-a-ssl-certificate) _authenticates_ a website's identity and enables an encrypted connection
+     - Protection of the _privacy_ and _integrity_ of the exchanged data
+     - Always use HTTPS to encrypt data in transit and protect against eavesdropping, man-in-the-middle attacks, and data tampering.
+     - All unsecure HTTP connections (port 80) should be automatically redirected to HTTPS (port 443) by using [HTTP status codes](https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html), the 3XX codes are redirect, 301 means Moved Permanently.
+     - (Typically, for localhost development environments secure connections are not needed)
 1. **Authentication**
    - Implement strong authentication mechanisms to ensure that only authorized users or systems can access the API.
    - Common methods include API keys, OAuth, JWT (JSON Web Tokens), or other token-based systems.
+   - 2FA (Two-Factor Authentication) or MFA (Multi-Factor Authentication) can be used to add an extra layer of security.
 1. **Authorization**
    - Define and enforce proper access controls to restrict users or systems to only the resources they are allowed to access.
 1. **Token Management**
@@ -69,9 +76,6 @@ When deploying applications to a server environment, security is a critical conc
      - For example, if a user is deleted from the database, their token should no longer be valid.
    - Implement token revocation mechanisms in case of compromised tokens.
      - In practice, this means that the server should keep track of issued tokens and their validity. If a token is compromised, it can be added to a blacklist and rejected by the server.
-1. **Secure Data Transmission**
-   - Avoid exposing sensitive information in the URL; use request headers or the request body for transmitting sensitive data.
-   - Be cautious with query parameters and ensure they do not expose sensitive information.
 1. **Data Protection**
    - Protect persistent data
    - Implement strict access control. This includes defining database users and privileges ensuring that users/applications have access only to the data necessary for their role.
@@ -95,8 +99,6 @@ When deploying applications to a server environment, security is a critical conc
 1. **Logging and Monitoring**
    - Log security-relevant events and regularly monitor logs for suspicious activity.
    - Set up alerts for unusual patterns or potential security incidents.
-1. **API Versioning**
-   - Consider versioning your API to avoid breaking changes and to allow clients to migrate at their own pace.
 1. **Security Headers**
    - Utilize security headers, such as [Content Security Policy (CSP)](https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP) and [Strict-Transport-Security (HSTS)](https://developer.mozilla.org/en-US/docs/Glossary/HSTS), to enhance overall security.
    - Check [Helmet](https://expressjs.com/en/advanced/best-practice-security.html#use-helmet) for Express applications.
@@ -185,7 +187,7 @@ Help for Linux usage:
    # Answer the questions when prompted, you need to provide your server DNS-name, something like <my.website>.cloudapp.azure.com
    ```
 
-   - To confirm that your site is set up properly, visit <https://yourwebsite.cloudapp.azure.com/> in your browser and look for the lock icon in the URL bar
+   - To confirm that your site is set up properly, visit https://my.server.hostname.cloudapp.azure.com/ in your browser and look for the lock icon in the URL bar
 
 #### MariaDB database server
 
@@ -221,8 +223,9 @@ Help for Linux usage:
 
    (in case you would need outside access (e.g. during project, separate database server from app server), replace `localhost` with `'%'` in the two GRANT queries and remember that the settings you did with `mysql_secure_installation` may prevent this).
 
-1. Use your own database creation script or download the [health-diary-db.sql](./assets/health-diary-db.sql) example SQL script. Can be done directly from server using curl: `curl -O <FILE-URL>` (note: click the _Raw_ button on script's GitHub page in order to get a working url) or downloaded at first to your local computer and then uploaded with any SCP file transfer tool to the server. (e.g. using command line secure copy tool **scp**: `scp health-diary-db.sql <YOUR-USERNAME>@<YOUR-SERVE-NAME/IP>:`)
-   - Alternatively, you can just copy paste the contents of the file to mysql client on the server.
+1. Use your own database creation script or download the [health-diary-db.sql](./assets/health-diary-db.sql) example SQL script.
+   - This can be done directly from the server using curl: `curl -O <FILE-URL>` (note: click the _Raw_ button on script's GitHub page in order to get a working url)
+   - or downloaded at first to your local computer and then uploaded with any SCP file transfer tool to the server. (e.g. using command line secure copy tool **scp**: `scp health-diary-db.sql <YOUR-USERNAME>@<YOUR-SERVE-NAME/IP>:`)
 1. Import the tables and insert the data: `mysql -u myusername -p < health-diary-db.sql` or `sudo mysql < health-diary-db.sql`
 1. Eventually check that the user account works and the data is there: `mysql -u myusername -p`
 
@@ -242,9 +245,13 @@ Help for Linux usage:
 1. Install _node.js_ and _npm_  from [nodesource package repository](https://github.com/nodesource/distributions#ubuntu-versions):
 
    ```bash
-   curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash - &&\
+   # Download the setup script:
+   curl -fsSL https://deb.nodesource.com/setup_23.x -o nodesource_setup.sh
+   # Run the setup script:
+   sudo -E bash nodesource_setup.sh
+   # Install node.js:
    sudo apt install -y nodejs
-   # check that the installed tools are working:
+   # Verify that the installed node tools are working:
    node -v
    npm -v
    ```
@@ -263,17 +270,19 @@ Help for Linux usage:
       <VirtualHost *:443>
         
         # some existing conf stuff here
-        ...
-        ...
 
-        # Choose only one of the following options:
+        #...
+        #...
 
-        # conf for URL subpath, e.g.: https://myserver.example.com/api/ <-> localhost:3000
+        # Choose only (uncomment or copy) one of the following configuration options:
+      
+        # configuration for URL subpath, e.g.: https://myserver.example.com/api/ <-> localhost:3000
         #ProxyPreserveHost On
         #ProxyPass /api/ http://127.0.0.1:3000/
         #ProxyPassReverse /api/ http://127.0.0.1:3000/
 
-        # OR conf for root path: https://myserver.example.com/ <-> localhost:3000
+        # OR configuration for root path: https://myserver.example.com/ <-> localhost:3000
+        # this is the recommended (easier) option
         ProxyPreserveHost On
         ProxyPass / http://127.0.0.1:3000/
         ProxyPassReverse / http://127.0.0.1:3000/
@@ -281,7 +290,7 @@ Help for Linux usage:
       </VirtualHost>
       ```
 
-1. When working with Ubuntu 22.04 default installation you need to enable modules `proxy` and `proxy_http` by using command `sudo a2enmod <MODULE-NAME>` and restart the web server:
+1. When working with Ubuntu 24.04 default installation you need to enable modules `proxy` and `proxy_http` by using command `sudo a2enmod <MODULE-NAME>` and restart the web server:
 
    ```bash
    sudo a2enmod proxy proxy_http
