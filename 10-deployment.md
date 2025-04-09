@@ -297,18 +297,21 @@ Help for Linux usage:
    sudo systemctl restart apache2
    ```
 
-1. Setup Git and connect to your remote repository
+1. Setup Git to connect to your remote repository
 
-   1. [Install Git on Ubuntu 22.04](https://www.digitalocean.com/community/tutorials/how-to-install-git-on-ubuntu-22-04)
-   1. [Generate a new SSH key](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent)
-   1. [Add SSH key to your GitHub account](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account)
-   1. [Test connection](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/testing-your-ssh-connection)
+   1. Test that `git` command works, if not install it: `sudo apt install git`
+   1. If your Github project repo is private, you need to setup ssh authentication:
+       1. [Generate a new SSH key](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/generating-a-new-ssh-key-and-adding-it-to-the-ssh-agent)
+       1. [Add SSH key to your GitHub account](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/adding-a-new-ssh-key-to-your-github-account)
+       1. [Test connection](https://docs.github.com/en/authentication/connecting-to-github-with-ssh/testing-your-ssh-connection)
+   1. It's also a good idea to setup your git user name: `git config --global user.name "Your Name"` and email: `git config --global user.email "youremail@example.com"` on the server.
 
 1. Install and run your Express application:
 
    1. Read [Production best practices: performance and reliability](https://expressjs.com/en/advanced/best-practice-performance.html) and [What is NODE_ENV in Node.js](https://www.geeksforgeeks.org/what-is-node_env-in-node-js/)
       - Prepare your app for production and create a new git branch `deployment` or use `main`
-   1. Make sure you are in your home folder: `cd`
+      - Make sure the branch for the deployment is up to date with the latest changes and works on your local machine and push it to the remote repository (GitHub)
+   1. **On the server:** Make sure you are in your home folder: `cd`
    1. `git clone <your-github-repo-url-here>` (or copy your back-end app to your home folder on the server exluding the contents of `node_modules` & `uploads` folders)
    1. Go to the app directory: `cd <my-app>`
    1. If you cloned the repo, make sure that you are in the right branch (`git checkout <branchname>` if not)
@@ -322,36 +325,44 @@ Help for Linux usage:
       DB_NAME=<your-db-name>
       JWT_SECRET=somesecuresecrethere
       JWT_EXPIRES_IN=1d
-      # and other settings that you may have in your app
-      ...
+      # add also other settings that you may have in your app (like the Kubios Api stuff)
+      # ...
       ```
 
-   1. For quick testing, start your application: `node src/index.js` or `npm start`
-   1. To kill the app, use `CTRL+C`, or if no more hanging in your terminal session, try `pkill node` or use `top`
-   1. Test: open a browser and visit `https://<your-ip-address-or-hostname>/api/<endpoint>`
-   1. To have your app running "forever" as a background service, featuring automatic restart on crash, use e.g. [pm2](https://pm2.keymetrics.io/):
+   1. To test start your application: `node src/index.js` or `npm start`
+   1. Test that it works: open a browser and visit `https://<your-ip-address-or-hostname>/api/<endpoint>`
+   1. To kill the app, use `CTRL+C`, or if it's no more attached to your terminal session, try `pkill node` or use [`top`](https://www.howtogeek.com/668986/how-to-use-the-linux-top-command-and-understand-its-output/)
+   1. To have your app running "forever" as a background service, featuring automatic restart on crash, writing log files, etc. use e.g. [pm2](https://pm2.keymetrics.io/):
 
-      ```sh
+      ```bash
       sudo npm install -g pm2
       pm2 start src/index.js --name <MY-SERVER-APP-NAME>
       ```
 
-   1. to check the status of running node apps, run `pm2 status`
-   1. to check for possible errors log files can be accessed with `pm2 logs`
-   1. restart app after code updates: `pm2 restart <app-name>`
-   1. if you want that the app automatically reload on change (e.g. on next `git pull`), use the `--watch` flag.
-   1. (optional) "pure" linux option could be using [systemd](https://nodesource.com/blog/running-your-node-js-app-with-systemd-part-1/) for creating a system process.
+      - To check the status of running node apps, run `pm2 status`
+      - To check for possible errors, etc.: log files can be accessed with `pm2 logs`
+      - Restart app after code updates: `pm2 restart <app-name>`
+      - If you want that the app automatically reload on change (e.g. on next `git pull`), use the `--watch` flag with `pm2`.
+   1. (optional) other "pure" linux option for managing the service would be using [systemd](https://nodesource.com/blog/running-your-node-js-app-with-systemd-part-1/) for creating a system process.
 
 #### Publishing Front-end application (Client)
 
-Front-end HTML/CSS/JS files can be served from any web server. **Easiest solution** is to use the [Express static](https://expressjs.com/en/starter/static-files.html) files serving option. Then you don't need care about cors issues and the apache proxy setup done earlier works out-of-the-box. For example when using Vite for front-end development:
+Front-end HTML/CSS/JS files can be served from any web server. **Easiest and the recommended solution** is to use the [Express static](https://expressjs.com/en/starter/static-files.html) files serving option. Then you don't need care about cors issues and the apache proxy setup done earlier works out-of-the-box. 
 
-1. Build the app by following [these instructions](./01-tools-env.md#publishing-the-website-created-with-vite)
+For example when using Vite for front-end development:
+
+1. Build your Vite app (`npm run build`) to create the static HTML/CSS/JS/etc. website files. (You cannot use the Vite development server for production on the server.)
    - **Note:** Remember to update your API connections (`fetch()` function calls) in your client code to use the real server's URL address instead of `localhost:3000`!
-1. Copy all contents of `dist/` folder to you node application's `public/` folder on the server.
+   - You can do the build on your local machine and then copy the files to the server or build directly on the deployment server using a cloned git repository of your front-end project. 
+1. Copy all contents of the `dist/` folder (generated by Vite build) to your node application's `public/` folder on the server.
+   - if you did the build on the local machine, you can use for instance WinSCP or Filezilla or cli tools [`scp`/`rsync`](https://www.howtogeek.com/devops/how-to-copy-directories-recursively-with-scp/) to copy the files to the server: `scp -r dist/ <USERNAME>@<SERVER-ADDRESS>:/path/to/your/app/public/` **or** put the files into `public/` folder in your node app's git repository (e.g. `deployment` branch) and push-pull them to the deployment server within the node app.
+   - if you did the build on the server, just [copy](https://www.freecodecamp.org/news/how-to-copy-a-directory-in-linux-with-the-cp-command/) the files to the right place on the server: `cp -r dist/* /path/to/your/app/public/`
+1. Make sure you have the correct git branch checked out on the server and then restart your node app with `pm2 restart <app-name>` after making changes to the node app.
 1. Test: open a browser and visit `https://<your-server-address>/` and `https://<your-server-address>/api/`
 
-**If** you want to use the Apache directly as a web server for static files:
+---
+
+**Or if** you want to use Apache directly as a web server for static files:
 
 1. Change the owner of the web root folder such that no `sudo` permissions are needed when you edit the contents of the folder: `sudo chown <USERNAME>.<USERNAME> /var/www/html`
 1. Upload/copy/clone your front-end files to the server's `/var/www/html/` directory
@@ -366,4 +377,4 @@ If running the front-end and back-end on different servers, you need to take car
 
 Follow the instructions above to deploy your application to an Azure virtual machine.
 
-**Returning:** No separate return is needed. This is part of your individual project work.
+**Returning:** No separate return is needed. This is part of your project assignment.
