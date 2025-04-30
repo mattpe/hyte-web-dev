@@ -316,7 +316,9 @@ Help for Linux usage:
    1. Go to the app directory: `cd <my-app>`
    1. If you cloned the repo, make sure that you are in the right branch (`git checkout <branchname>` if not)
    1. Install your dependencies: `npm install --production` (`--production` flag is used to avoid installing development dependencies if not needed on deployment server)
-   1. Create/edit `.env` file (see `.env.sample`) with your db credentials (you set in [MariaDB](#mariadb-database-server)) and other settings:
+   1. Create/edit `.env` file with your db credentials (you set in [MariaDB](#mariadb-database-server)) and other settings:
+       - you can use `.env.sample` as a template by copying it: `cp .env.sample .env` (navigate to the correct directory first by using `cd` commands)
+       - edit the env file with nano: `nano .env`:
 
       ```conf
       DB_HOST=127.0.0.1
