@@ -205,10 +205,10 @@ app.listen(port, hostname, () => {
 
 ### Serving static files
 
-1. Create a folder `src/public` and add any static files into it, e.g. html, css, js, images, etc.
-1. Serve the files: `app.use(express.static('public'));`
-   - or when using different folder name and http path: `app.use('/static', express.static('public'));`
-1. Access the files in `public` folder at `http://localhost:3000/public/...` or `http://localhost:3000/static/...`
+1. Create a folder `public` into your project folder and add any static files into it, e.g. html, css, js, images, etc.
+1. Serve the files using root URL: `app.use(express.static('public'));`
+   - or if you want to use a sub path in the URL for the files folder: `app.use('/static', express.static('public'));`
+1. Access the files in `public` folder at `http://localhost:3000/filename` when using root URL or `http://localhost:3000/static/filename` when using sub path
 
 ### Serving response in JSON format (for client-side rendering, CSR)
 
