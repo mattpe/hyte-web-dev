@@ -495,3 +495,14 @@ Think about requirements of a health diary app. What kind of data is needed?
     ```
 
 **Returning:** Check assignment in OMA.
+
+---
+
+<!-- add mermaid support for gh pages -->
+<script type="module">
+    Array.from(document.getElementsByClassName("language-mermaid")).forEach(element => {
+      element.classList.add("mermaid");
+    });
+    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+    mermaid.initialize({ startOnLoad: true });
+</script>

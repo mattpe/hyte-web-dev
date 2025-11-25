@@ -309,3 +309,14 @@ In web applications, authentication is typically done by verifying a username an
      - Use e.g. conditional statements in the models to decide which SQL query to use based on the user level.
 
 **Returning:** See related assignment in Oma.
+
+---
+
+<!-- add mermaid support for gh pages -->
+<script type="module">
+    Array.from(document.getElementsByClassName("language-mermaid")).forEach(element => {
+      element.classList.add("mermaid");
+    });
+    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+    mermaid.initialize({ startOnLoad: true });
+</script>

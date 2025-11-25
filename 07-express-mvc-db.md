@@ -446,3 +446,14 @@ export {getEntries, getEntryById, postEntry, putEntry, deleteEntry};
      - How they work?
 
 **Returning:** See assignment in Oma.
+
+---
+
+<!-- add mermaid support for gh pages -->
+<script type="module">
+    Array.from(document.getElementsByClassName("language-mermaid")).forEach(element => {
+      element.classList.add("mermaid");
+    });
+    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+    mermaid.initialize({ startOnLoad: true });
+</script>

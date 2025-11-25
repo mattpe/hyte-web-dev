@@ -385,3 +385,14 @@ Some generic coding tips:
 - Separate UI from the application logic as much as possible. Avoid writing the whole application logic in event handlers.
 - Use `console.log()` / debugger & breakpoints. Or on the client also alert events can be used.
 - If the application refuses to work, step back and try to isolate the problematic part.
+
+---
+
+<!-- add mermaid support for gh pages -->
+<script type="module">
+    Array.from(document.getElementsByClassName("language-mermaid")).forEach(element => {
+      element.classList.add("mermaid");
+    });
+    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+    mermaid.initialize({ startOnLoad: true });
+</script>

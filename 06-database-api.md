@@ -160,3 +160,14 @@ UPDATE Users SET user_level = 'regular' WHERE user_id IN (
 - [W3Schools: SQL Tutorial](https://www.w3schools.com/sql/)
 
 **Next**: [Express MVC, Routing, Middlewares and Database connection](07-express-mvc-db.md)
+
+---
+
+<!-- add mermaid support for gh pages -->
+<script type="module">
+    Array.from(document.getElementsByClassName("language-mermaid")).forEach(element => {
+      element.classList.add("mermaid");
+    });
+    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs';
+    mermaid.initialize({ startOnLoad: true });
+</script>
