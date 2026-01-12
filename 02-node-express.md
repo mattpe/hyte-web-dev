@@ -39,16 +39,15 @@ Prerequicities: Toolchain installed (see [01-tools-env.md](01-tools-env.md)).
    ];
    ```
 
-   - Add `.prettierrc.cjs` file with the following content:
+   - Add `.prettierrc.json` file with the following content:
 
    ```js
-   // sample .prettierrc.cjs
-   module.exports = {
-     semi: true,
-     singleQuote: true,
-     bracketSpacing: false,
-     trailingComma: 'all',
-   };
+  {
+    "semi": true,
+    "singleQuote": true,
+    "bracketSpacing": false,
+    "trailingComma": "all"
+  }
    ```
 
 1. Install `nodemon` as a development dependency: `npm install --save-dev nodemon`.
