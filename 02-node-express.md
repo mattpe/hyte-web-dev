@@ -11,6 +11,7 @@ Prerequicities: Toolchain installed (see [01-tools-env.md](01-tools-env.md)).
 1. Open the project folder in your code editor.
 1. Open a terminal (command-line) in the project folder.
 1. Run `npm init` inside the project folder. The wizard needs an interactive shell, use terminal on MacOS/Linux or Git Bash/Powershell on Windows.
+   - Hit enter to choose defaults values for all options except for `type` enter `module`: `type: (commonjs) module`)
 1. Setup [ESLint](https://eslint.org/) and [Prettier](https://prettier.io/) for code linting and formatting (Read more about the differences and roles of the tools on [LogRocket Blog](https://blog.logrocket.com/using-prettier-eslint-javascript-formatting/) and [ESLint blog](https://eslint.org/blog/2023/10/deprecating-formatting-rules/)).
 
    - Install npm packages:
@@ -52,7 +53,7 @@ Prerequicities: Toolchain installed (see [01-tools-env.md](01-tools-env.md)).
 
 1. Install `nodemon` as a development dependency: `npm install --save-dev nodemon`.
    - a tool that helps develop Node.js based applications by automatically restarting the node application when file changes in the directory are detected.
-1. Review `package.json`, add a script for starting your app with nodemon, and add `type` property:
+1. Review `package.json`, add a script for starting your app with nodemon, and add `type` property (if missing):
 
    ```json
    ...
