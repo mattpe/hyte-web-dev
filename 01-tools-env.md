@@ -2,8 +2,6 @@
 
 ## Architecture and concepts
 
-## Architecture and concepts
-
 Typical client-server architecture in web applications
 
 ```mermaid
@@ -383,15 +381,14 @@ max_line_length = 80
 - provides configuration options to customize the formatting rules according to project requirements.
 - helps maintain code readability and improves code maintainability by providing a consistent and clean codebase.
 
-```javascript
-// sample .prettierrc.cjs
-module.exports = {
-  semi: true,
-  singleQuote: true,
-  bracketSpacing: false,
-  singleQuote: true,
-  trailingComma: 'all',
-};
+```json
+// sample .prettierrc.json 
+{
+  "semi": true,
+  "singleQuote": true,
+  "bracketSpacing": false,
+  "trailingComma": "es5"
+}
 ```
 
 ### [ESLint](https://eslint.org/)
