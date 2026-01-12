@@ -70,4 +70,5 @@
 
 ## Week assignment 2
 
-Follow the teacher's example ("Creating a REST API with mock data" section above, link to the example code is in Oma) and implement TODOs in the example code. See assignment details in Oma.
+Follow the teacher's example ("Creating a REST API with mock data" section above, link to the example code is in Oma). 
+Implement TODOs marked in code comments in the teacher's lecture example code. See assignment details in Oma.
