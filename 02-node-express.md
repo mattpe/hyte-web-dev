@@ -42,26 +42,26 @@ Prerequicities: Toolchain installed (see [01-tools-env.md](01-tools-env.md)).
 
    - Add `.prettierrc.json` file with the following content:
 
-   ```js
-  {
-    "semi": true,
-    "singleQuote": true,
-    "bracketSpacing": false,
-    "trailingComma": "all"
-  }
-   ```
+    ```js
+    {
+      "semi": true,
+      "singleQuote": true,
+      "bracketSpacing": false,
+      "trailingComma": "all"
+    }
+    ```
 
 1. Install `nodemon` as a development dependency: `npm install --save-dev nodemon`.
    - a tool that helps develop Node.js based applications by automatically restarting the node application when file changes in the directory are detected.
 1. Review `package.json`, add a script for starting your app with nodemon, and add `type` property (if missing):
 
-   ```json
-   ...
-   "type": "module",
-   "scripts": {
-     "dev": "nodemon src/index.js",
-     ...
-   ```
+    ```json
+    ...
+    "type": "module",
+    "scripts": {
+      "dev": "nodemon src/index.js",
+      ...
+    ```
 
 1. Initialize a git repository: `git init` and create a `.gitignore` file and add at least `node_modules` to it. Remember to keep the file always up to date when adding files you don't want to include version control!
 
