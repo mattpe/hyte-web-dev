@@ -310,7 +310,7 @@ If running the front-end and back-end on different servers, you need to take car
 
 ### MySQL2 examples
 
-JavaScript variables in SQL queries should be handled using [prepared statements](https://github.com/sidorares/node-mysql2#using-prepared-statements) to prevent SQL injection attacks.
+JavaScript variables in SQL queries should be handled using [prepared statements](https://sidorares.github.io/node-mysql2/docs#using-prepared-statements) to prevent SQL injection attacks (use `execute()` method for queries instead of `query()`).
 
 _entry-model.js:_
 
@@ -332,7 +332,7 @@ const listAllEntries = async () => {
 
 const findEntryById = async (id) => {
   try {
-    const [rows] = await promisePool.query('SELECT * FROM DiaryEntries WHERE entry_id = ?', [id]);
+    const [rows] = await promisePool.execute('SELECT * FROM DiaryEntries WHERE entry_id = ?', [id]);
     console.log('rows', rows);
     return rows[0];
   } catch (e) {
@@ -347,7 +347,7 @@ const addEntry = async (entry) => {
                VALUES (?, ?, ?, ?, ?, ?)`;
   const params = [user_id, entry_date, mood, weight, sleep_hours, notes];
   try {
-    const rows = await promisePool.query(sql, params);
+    const rows = await promisePool.execute(sql, params);
     console.log('rows', rows);
     return {entry_id: rows[0].insertId};
   } catch (e) {
