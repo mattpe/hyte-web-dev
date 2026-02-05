@@ -17,10 +17,10 @@ Week 2
 Week 3
 
 5. [Relational databases](05-databases.md)
+6. [Database design](06-database-api.md)
 
 Week 4
 
-6. [Database design](06-database-api.md)
 7. [Express MVC, Routing and Middlewares](07-express-mvc-db.md)
 
 Week 5
