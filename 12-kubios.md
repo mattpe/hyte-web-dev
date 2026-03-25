@@ -38,12 +38,12 @@ graph TD
 ## Implement Login using Kubios cloud
 
 1. Continue the node express project from the previous course
-1. Add Kubios settings to `.env` file (and to `.env.sample`)
+1. Add Kubios settings to `.env` file (and to `.env.sample`), make sure you have the `.env` file in `.gitignore` and do not share the real values publicly
 
     ```conf
     ...
     JWT_EXPIRES_IN=1h # 1 hour is the default for Kubios too?
-    KUBIOS_CLIENT_ID=get-from-Oma-docs # DO NOT COMMIT THIS TO GIT or share publicly
+    KUBIOS_CLIENT_ID=get-from-teacher-sakke # DO NOT COMMIT THE REAL VALUE TO GIT or share publicly (make sure to add it to .env.sample with placeholder value)
     KUBIOS_LOGIN_URL=https://kubioscloud.auth.eu-west-1.amazoncognito.com/login
     KUBIOS_REDIRECT_URI=https://analysis.kubioscloud.com/v1/portal/login
     KUBIOS_API_URI=https://analysis.kubioscloud.com/v2
@@ -256,14 +256,17 @@ graph TD
     export {postLogin, getMe};
     ```
 
-1. Replace existing auth controller with new one in `authRouter.js`:
+1. Replace existing auth controller functions with new ones in `authRouter.js`:
 
     ```js
+    // if you have the old auth controller, replace the import file with the new one
     // import {getMe, postLogin} from '../controllers/auth-controller.js';
+    // if you have auth endoints in user-controller, replace the function imports with the new ones
     import {getMe, postLogin} from '../controllers/kubios-auth-controller.js';
     ```
 
-1. Test login with Postman using your Kubios cloud user account
+1. Test login with Postman/REST Client using your Kubios cloud user account
+    - If using REST Client, make sure not to commit the request file with real username and password to git, add the file to `.gitignore` and do not share it publicly
 
 ## Example of requesting data from Kubios cloud
 
@@ -292,8 +295,10 @@ graph TD
       headers.append('Authorization', kubiosIdToken);
 
       const response = await fetch(
-        // TODO: set the from date in request parameters
-        baseUrl + '/result/self?from=2022-01-01T00%3A00%3A00%2B00%3A00',
+        // TODO: set the from date more sophisticated way
+        // in this example, data from 1.1.2024 is requested and hardcoded in the URL,
+        // but it should be dynamic based on for example request parameters or some other date handling logic
+        baseUrl + '/result/self?from=2024-01-01T00%3A00%3A00%2B00%3A00',
         {
           method: 'GET',
           headers: headers,
@@ -353,17 +358,18 @@ graph TD
     ...
     ```
 
-1. Test routes with Postman using token got from Kubios cloud login
+1. Test routes with Postman/REST Client using token got from Kubios cloud login request
 
 ## Considerations & enhancements
 
-- Fix/refactor all routes/controllers that use other info besides the `userId` and `kubiosIdToken` extracted from JWT authentication token
-- Add error handling to Kubios controller
+- The Kubios id token is included in the JWT token used in this app, but it could also be stored in the database if needed. What is the best way to store the user data?
+  - It might be good idea to store only userID in the JWT token and fetch other user data from the database when needed
+  - Refactoring of all existing routes/controllers that use other info besides the `userId` and `kubiosIdToken` extracted from JWT authentication token might be needed 
+- Add error handling to Kubios controller: forwared errors from Kubios API to client, for example if the Kubios token is expired or invalid, etc.
 - What is the best way to store the user data?
-  - Note that kubios data is not stored in the database in these examples
+  - Note that kubios data is not stored in the local database in these examples
   - How to store or integrate additional data in local database?
-- Update the database?
-  - Remove passwords from the database if not needed anymore
+- If local only users are not needed anymore, consider removing their data from the database, including passwords, etc. and update the database schema accordingly 
 
 ---
 
