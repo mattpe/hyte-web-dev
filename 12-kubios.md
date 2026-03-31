@@ -50,6 +50,16 @@ graph TD
     KUBIOS_USER_AGENT=YOUR_APP_NAME_HERE
     ```
 
+1. Add custom error handling to `error-handler.js` if not already implemented, for example:
+
+    ```js
+    export const customError = (message, status) => {
+      const error = new Error(message);
+      error.status = status;
+      return error;
+    };
+    ```
+    
 1. Add a function to `userModel.js` to check if user email already exists in local database
 
     ```js
@@ -72,6 +82,11 @@ graph TD
       }
     };
     ```
+
+    Add also similar `selectUserById` function if not already implemented, to fetch user info based on user id.
+
+1. Install package `node-fetch` to make HTTP requests to Kubios API from the backend server: `npm install node-fetch`
+1. Install package `uuid` to generate random password for the user created in local database: `npm install uuid`
 
 1. Create a new auth controller to use the Kubios cloud user credentials for authentication `kubios-auth-controller.js`:
 
@@ -256,6 +271,8 @@ graph TD
     export {postLogin, getMe};
     ```
 
+    Check that you are using same function names in models you are importing in the controller, for example if you have `getUserByEmail` instead of `selectUserByEmail`, change the function name in the controller import and in the function call.
+
 1. Replace existing auth controller functions with new ones in `authRouter.js`:
 
     ```js
@@ -288,7 +305,7 @@ graph TD
     * @param {Response} res
     * @param {NextFunction} next
     */
-    const getUserData = async (req, res, next) => {
+    const getUserData = async (req, res) => {
       const {kubiosIdToken} = req.user;
       const headers = new Headers();
       headers.append('User-Agent', process.env.KUBIOS_USER_AGENT);
@@ -316,7 +333,7 @@ graph TD
     * @param {Response} res
     * @param {NextFunction} next
     */
-    const getUserInfo = async (req, res, next) => {
+    const getUserInfo = async (req, res) => {
       const {kubiosIdToken} = req.user;
       const headers = new Headers();
       headers.append('User-Agent', process.env.KUBIOS_USER_AGENT);
