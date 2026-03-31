@@ -71,18 +71,17 @@ The choice of the running environment components depends on factors like the typ
 
 ### Materials & links
 
-Browse, read, watch & study:
+Browse, read, watch & study (optional but useful):
 
 - [Introduction to Azure fundamentals](https://learn.microsoft.com/en-us/training/modules/intro-to-azure-fundamentals/)
 - [Get started with Azure](https://azure.microsoft.com/en-us/get-started/)
 - [MS Azure Youtube channel](https://www.youtube.com/channel/UC0m-80FnNY2Qb7obvTL_2fA)
-- [Azure portal](https://portal.azure.com/)
-- [Azure CLI](https://docs.microsoft.com/en-us/cli/azure/)
+- [Azure CLI](https://docs.microsoft.com/en-us/cli/azure/) (command-line interface for managing Azure resources, advanced option to use instead of Azure portal)
 - [Azure network security group](https://docs.microsoft.com/en-us/azure/virtual-network/network-security-groups-overview)
 
-Help for Linux usage:
+Help for Linux usage (for managing your Ubuntu VM, same concepts apply for other Linux distributions too):
 
-- [Using Linux command line](https://ubuntu.com/tutorials/command-line-for-beginners)
+- [Using Linux command line](https://documentation.ubuntu.com/desktop/en/latest/tutorial/the-linux-command-line-for-beginners/)
 - [The Beginner’s Guide to Nano, the Linux Command-Line Text Editor](https://www.howtogeek.com/42980/the-beginners-guide-to-nano-the-linux-command-line-text-editor/)
 - [Ubuntu package management](https://ubuntu.com/server/docs/package-management)
 - [Ubuntu firewall](https://ubuntu.com/server/docs/security-firewall)
