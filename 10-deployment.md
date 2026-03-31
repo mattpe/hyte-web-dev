@@ -1,27 +1,4 @@
-# Application deployment
-
-## Running environment
-
-In server-side applications, the running environment, often referred to as the "runtime environment" or simply the "runtime," is the software and hardware infrastructure where the server-side code of an application executes. This environment provides the necessary resources and services for the server-side code to run, handle requests, process data, and generate responses. The choice of a running environment depends on various factors, including the programming language, framework, and the specific requirements of the application.
-
-- **Server hardware**: The physical or virtual server where the application runs. It includes CPU, memory (RAM), storage (disk space), and network connectivity. The server hardware's capacity and configuration impact the application's performance and scalability.
-- **Operating system (OS)**: The server typically runs on an operating system (OS), such as Linux, Windows Server, or macOS Server. The OS manages system resources, handles hardware communication, and provides a platform for running software.
-- **Web server**: In web applications, a web server software (e.g., Apache, Nginx, IIS) often serves as an intermediary between client requests and the server-side application. It handles tasks like request routing, load balancing, and static file serving.
-- **Runtime for the programming language**: The specific runtime environment for the chosen programming language. For example:
-  - For Python applications, the Python runtime environment is necessary, which includes the Python interpreter.
-  - For Java applications, the Java Virtual Machine (JVM) serves as the runtime environment.
-  - For Node.js applications, the Node.js runtime environment is required.
-  - For PHP applications, the PHP interpreter is used.
-- **Application server (optional)**: In some cases, like with Java-based applications, an application server like Tomcat, WildFly, or WebSphere may be used. It provides additional services like connection pooling, transaction management, and security. With node.js the pm2 process manager can be used for similar purposes.
-- **Database server**: If the application interacts with a database, a database server (e.g., MySQL, PostgreSQL, MongoDB) is part of the runtime environment. It manages data storage, retrieval, and manipulation.
-- **Frameworks & middleware**: Middleware components and frameworks used to develop the server-side application. These may include web frameworks (e.g., Flask, Ruby on Rails, Express.js), message brokers (e.g., RabbitMQ), and caching systems (e.g., Redis).
-- **Environment variables and configuration**: Settings and configuration parameters that control the behavior of the application. These may include database connection strings, API keys, and other environment-specific variables. These values usually differ between development, testing, and production environments.
-- **Security components**: Security measures like firewalls, intrusion detection systems, and encryption protocols that protect the server and its data.
-- **Monitoring and logging tools**: Tools and services that help monitor the server's performance, track errors, and log application events for debugging and analysis.
-- **Load balancers (for scalability)**: In a high-traffic environment, load balancers distribute incoming requests across multiple servers to ensure scalability and high availability.
-- **Containerization and orchestration (e.g., Docker, Kubernetes)**: In modern server environments, containerization technologies and orchestration platforms are used to package, deploy, and manage applications and their dependencies in a consistent and scalable manner.
-
-The choice of the running environment components depends on factors like the type of application, expected traffic, scalability requirements, and the technology stack being used. Designing a robust and efficient running environment is essential for ensuring the reliable operation of server-side applications.
+# Cloud Services and Application Deployment
 
 ## Cloud services and environments
 
@@ -47,66 +24,50 @@ Cloud computing models provide different levels of control, flexibility, and man
 PaaS is like renting the land and building your house - you control the house but not the land it’s on.
 IaaS is like leasing/buying a plot of land - you have full control over the land and what you build on it, but you don’t own the land.
 
-## Security considerations
+## Public vs. Private
 
-When deploying applications to a (production) server environment, security is a critical concern. Here are some tips and best practices to ensure the security of your application:
+Cloud services can be deployed in different ways, primarily categorized as public, private, or hybrid clouds.
 
-1. **Keep Software Up to Date**
-   - Regularly update your server's operating system, web server software, database server, and any libraries or frameworks used in your application to patch known vulnerabilities.
-   - Use package managers (e.g., `apt`, `yum`, `npm`) to keep software up to date.
-1. **Secure Data Transmission**
-   - Avoid exposing sensitive information in the URL; use request headers or the request body for transmitting sensitive data.
-   - Be cautious with query parameters and ensure they do not expose sensitive information.
-   - Use **[HTTPS](https://en.wikipedia.org/wiki/HTTPS)**
-     - HTTP over [TLS/SSL](https://en.wikipedia.org/wiki/Transport_Layer_Security) (TLS is the new progression of SSL but the _term_ SSL is still generally used)
-     - [SSL certificate](https://www.kaspersky.com/resource-center/definitions/what-is-a-ssl-certificate) _authenticates_ a website's identity and enables an encrypted connection
-     - Protection of the _privacy_ and _integrity_ of the exchanged data
-     - Always use HTTPS to encrypt data in transit and protect against eavesdropping, man-in-the-middle attacks, and data tampering.
-     - All unsecure HTTP connections (port 80) should be automatically redirected to HTTPS (port 443) by using [HTTP status codes](https://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html), the 3XX codes are redirect, 301 means Moved Permanently.
-     - (Typically, for localhost development environments secure connections are not needed)
-1. **Authentication**
-   - Implement strong authentication mechanisms to ensure that only authorized users or systems can access the API.
-   - Common methods include API keys, OAuth, JWT (JSON Web Tokens), or other token-based systems.
-   - 2FA (Two-Factor Authentication) or MFA (Multi-Factor Authentication) can be used to add an extra layer of security.
-1. **Authorization**
-   - Define and enforce proper access controls to restrict users or systems to only the resources they are allowed to access.
-1. **Token Management**
-   - If using tokens (such as JWT), ensure proper token validation, expiration checks, and secure storage.
-   - Check that the user stored in the token is still valid and has the required permissions.
-     - For example, if a user is deleted from the database, their token should no longer be valid.
-   - Implement token revocation mechanisms in case of compromised tokens.
-     - In practice, this means that the server should keep track of issued tokens and their validity. If a token is compromised, it can be added to a blacklist and rejected by the server.
-1. **Data Protection**
-   - Protect persistent data
-   - Implement strict access control. This includes defining database users and privileges ensuring that users/applications have access only to the data necessary for their role.
-   - Encrypt sensitive data (like passwords) in the database and ensure that only authorized individuals can access it.
-1. **Input Validation**
-   - Validate and sanitize all incoming data to prevent injection attacks, such as SQL injection, NoSQL injection, or script injection.
-   - Enforce strong validation for data types, lengths, and formats.
-1. **Output Encoding**
-   - Encode output data to protect against Cross-Site Scripting (XSS) attacks. HTML, XML, or JSON encoding should be applied depending on the output format.
-1. **Error Handling**
-   - Provide meaningful error messages to clients without revealing sensitive information.
-   - Log errors securely on the server side for monitoring and debugging.
-1. **[Same-origin policy (SOP)](https://developer.mozilla.org/en-US/docs/Web/Security/Same-origin_policy) and [Cross-Origin Resource Sharing (CORS)](https://developer.mozilla.org/en-US/docs/Web/HTTP/CORS)**
-   - SOP is a security mechanism that restricts how a document or script loaded by one [origin](https://developer.mozilla.org/en-US/docs/Web/Security/Same-origin_policy#definition_of_an_origin) can interact with a resource from another origin.
-   - CORS is an HTTP-header based mechanism that allows a server to indicate any origins other than its own from which a browser should permit loading resources.
-   - Implement proper CORS headers to control which domains are allowed to access the API if needed.
-   - Be restrictive with CORS configurations to prevent unauthorized cross-origin requests.
-1. **Rate Limiting**
-   - Implement rate limiting to prevent abuse, brute-force attacks, or denial-of-service attacks.
-   - Configure sensible rate limits based on the nature of the API.
-1. **Logging and Monitoring**
-   - Log security-relevant events and regularly monitor logs for suspicious activity.
-   - Set up alerts for unusual patterns or potential security incidents.
-1. **Security Headers**
-   - Utilize security headers, such as [Content Security Policy (CSP)](https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP) and [Strict-Transport-Security (HSTS)](https://developer.mozilla.org/en-US/docs/Glossary/HSTS), to enhance overall security.
-   - Check [Helmet](https://expressjs.com/en/advanced/best-practice-security.html#use-helmet) for Express applications.
-1. **Security Reviews and Audits**
-   - Regularly conduct security reviews and audits of your API design, code, and infrastructure.
-   - Stay informed about security best practices and vulnerabilities relevant to your technology stack.
+![Cloud deployment models](assets/hybrid-cloud.png)
 
-## Installing a Virtual Server on Azure cloud environmnent (IaaS)
+- **Public Cloud**
+  - Public cloud services are provided by third-party providers over the public internet, making them available to anyone who wants to use or purchase them.
+  - Resources such as servers and storage are owned and operated by the cloud provider and shared among multiple organizations (tenants).
+  - Examples: Amazon Web Services (AWS), Microsoft Azure, Google Cloud Platform (GCP).
+  - Benefits: Cost-effective, scalable, and easy to access. Ideal for businesses that want to avoid the complexity of managing their own infrastructure.
+- **Private Cloud**
+  - Private cloud services are used exclusively by a single organization. The cloud infrastructure can be hosted on-premises or by a third-party provider.
+  - Resources are not shared with other organizations, providing greater control over security and compliance.
+- **Hybrid Cloud**
+  - Hybrid cloud combines public and private cloud elements, allowing data and applications to be shared between them.
+  - Organizations can take advantage of the scalability and cost-effectiveness of public clouds while maintaining control over sensitive data in private clouds.
+
+## Running environment
+
+In server-side applications, the running environment, often referred to as the "runtime environment" or simply the "runtime," is the software and hardware infrastructure where the server-side code of an application executes. This environment provides the necessary resources and services for the server-side code to run, handle requests, process data, and generate responses. The choice of a running environment depends on various factors, including the programming language, framework, and the specific requirements of the application.
+
+- **Server hardware**: The physical or virtual server where the application runs. It includes CPU, memory (RAM), storage (disk space), and network connectivity. The server hardware's capacity and configuration impact the application's performance and scalability.
+- **Operating system (OS)**: The server typically runs on an operating system (OS), such as Linux, Windows Server, or macOS Server. The OS manages system resources, handles hardware communication, and provides a platform for running software.
+  - _Guest OS_ is a term used when the OS is running inside a virtual machine (VM) or container.
+  - _Host OS_ is the underlying OS that runs on the physical server and hosts the VMs or containers.
+- **Web server**: In web applications, a web server software (e.g., Apache, Nginx, IIS) often serves as an intermediary between client requests and the server-side application. It handles tasks like request routing, load balancing, and static file serving.
+- **Runtime for the programming language**: The specific runtime environment for the chosen programming language. For example:
+  - For Python applications, the Python runtime environment is necessary, which includes the Python interpreter.
+  - For Java applications, the Java Virtual Machine (JVM) serves as the runtime environment.
+  - For Node.js applications, the Node.js runtime environment is required.
+  - For PHP applications, the PHP interpreter is used.
+- **Application server (optional)**: In some cases, like with Java-based applications, an application server like Tomcat, WildFly, or WebSphere may be used. It provides additional services like connection pooling, transaction management, and security. With node.js the pm2 process manager can be used for similar purposes.
+- **Database server**: If the application interacts with a database, a database server (e.g., MySQL, PostgreSQL, MongoDB) is part of the runtime environment. It manages data storage, retrieval, and manipulation.
+- **Frameworks & middleware**: Middleware components and frameworks used to develop the server-side application. These may include web frameworks (e.g., Flask, Ruby on Rails, Express.js), message brokers (e.g., RabbitMQ), and caching systems (e.g., Redis).
+- **Environment variables and configuration**: Settings and configuration parameters that control the behavior of the application. These may include database connection strings, API keys, and other environment-specific variables. These values usually differ between development, testing, and production environments.
+- **Security components**: Security measures like firewalls, intrusion detection systems, and encryption protocols that protect the server and its data.
+- **Monitoring and logging tools**: Tools and services that help monitor the server's performance, track errors, and log application events for debugging and analysis.
+- **Load balancers (for scalability)**: In a high-traffic environment, load balancers distribute incoming requests across multiple servers to ensure scalability and high availability.
+- **Containerization and orchestration (e.g., Docker, Kubernetes)**: In modern server environments, containerization technologies and orchestration platforms are used to package, deploy, and manage applications and their dependencies in a consistent and scalable manner.
+
+The choice of the running environment components depends on factors like the type of application, expected traffic, scalability requirements, and the technology stack being used. Designing a robust and efficient running environment is essential for ensuring the reliable operation of server-side applications.
+
+## Installing a Virtual Server on Azure cloud environment (IaaS)
 
 ### Materials & links
 
@@ -130,23 +91,30 @@ Help for Linux usage:
 
 1. Sign up for a free [student account](https://azure.microsoft.com/en-us/free/students/) using your school email address & login, you should get some free credits (100 USD), [more info](https://docs.microsoft.com/en-us/azure/education-hub/azure-dev-tools-teaching/program-faq)
 1. Go to [Azure portal](https://portal.azure.com/)
-1. Create a resource: Virtual machine (VM), use server instance, e.g. latest Ubuntu server LTS)
-
-   - select [VM size](https://docs.microsoft.com/en-us/azure/virtual-machines/sizes) & disks according your needs (Think about what is the minimum for a web server? Check the OS system requirements, etc.)
-   - 'Standard_B1ms' is the teacher's recommendation for this course
-   - NOTE: you have 100 USD of student credits to spend in total (for a one year)
-   - Allow access to SSH, HTTP and HTTPS ports
-
-   ![Basic example setup](assets/azure-vm-settings.png)
-
-   - Finally hit the _CREATE_ button and wait for the VM deployment to finish
+1. Create a resource: **Virtual machine (VM)** with following settings:
+   - Choose your subscription (Azure for Students)
+   - Create new resource group, e.g. `web-project-rg`
+   - Virtual machine name: e.g. `my-web-server`
+   - Region: choose the closest one
+     - Note: with free student account you may have limited options and you might need to check which regions are available for you, more info: <https://learn.microsoft.com/en-us/answers/questions/5549511/student-account-in-which-regions-can-i-deploy-a-vm>
+   - Availability options: No infrastructure redundancy required
+   - Security type: Standard
+   - Image: Choose a Linux server image, e.g. latest Ubuntu Server LTS
+   - Select [VM size](https://docs.microsoft.com/en-us/azure/virtual-machines/sizes) & disks according your needs (Think about what is the minimum for a web server? Check the OS system requirements, etc.)
+     - 'Standard_B1ms' is the teacher's recommendation for this course
+     - NOTE: you have 100 USD of student credits to spend in total (for a one year)
+   - Authentication type: Password (or SSH public key if you prefer that), this is the admin user account for the VM
+   - Public inbound ports: Allow access to SSH, HTTP and HTTPS ports
+   - For other settings you can leave the default values
+   - **Disk tab:** Change OS disk type to Standard SSD
+   - **Networking tab:** Make sure that a new public IP address & subnet is created, default settings are ok
+   - **Management tab:** default settings are ok, automatic shutdown can be useful in order to save credits
+   - Click _Review + create_ and check that all settings are ok
+1. Finally hit the _CREATE_ button and wait for the VM deployment to finish
    - After successful deployment of the virtual machine go to the resources's _Overview_ page and configure the _DNS name_ for your public IP address.
    - Note: VM is paid by hour when the VM is running. In development use it's a good idea to stop the VM when you don't need it (start/stop buttons are found in Azure portal).
-
 1. Use SSH connection for managing your VM (`ssh username@PUBLIC_IP/YOUR_DNS_NAME` in terminal/git bash or use e.g. [Putty](https://www.putty.org/))
-
    - Optional: use public key authentication instead of username/password: [Instructions](https://www.digitalocean.com/community/tutorials/how-to-set-up-ssh-keys-on-ubuntu-22-04)
-
 1. Make sure you have all recent updates installed (this should be done on weekly basis)
 
    ```bash
@@ -215,24 +183,23 @@ Help for Linux usage:
 1. Connect to your database server as a root user: `sudo mysql -u root` and create a database and a user with privileges on it:
 
    ```sql
-   CREATE DATABASE HealthDiary;
+   CREATE DATABASE MyDatabaseName;
    CREATE USER 'myusername'@'localhost' IDENTIFIED BY 'mypassword';
-   GRANT ALL PRIVILEGES ON `HealthDiary`.* TO 'myusername'@'localhost';
+   GRANT ALL PRIVILEGES ON `MyDatabaseName`.* TO 'myusername'@'localhost';
    FLUSH PRIVILEGES;
    ```
 
    (in case you would need outside access (e.g. during project, separate database server from app server), replace `localhost` with `'%'` in the two GRANT queries and remember that the settings you did with `mysql_secure_installation` may prevent this).
 
-1. Use your own database creation script or download the [health-diary-db.sql](./assets/health-diary-db.sql) example SQL script.
-   - This can be done directly from the server using curl: `curl -O <FILE-URL>` (note: click the _Raw_ button on script's GitHub page in order to get a working url)
-   - or downloaded at first to your local computer and then uploaded with any SCP file transfer tool to the server. (e.g. using command line secure copy tool **scp**: `scp health-diary-db.sql <YOUR-USERNAME>@<YOUR-SERVE-NAME/IP>:`)
-1. Import the tables and insert the data: `mysql -u myusername -p < health-diary-db.sql` or `sudo mysql < health-diary-db.sql`
+1. Use your own database creation script.  
+   - You can download from the internet (e.g. Github) directly to the server using curl: `curl -O <FILE-URL>` (note: click the _Raw_ button on script's GitHub page in order to get a working url)
+   - or upload with any SCP file transfer tool to the server. (e.g. using command line secure copy tool **scp**: `scp my-db.sql <YOUR-USERNAME>@<YOUR-SERVE-NAME/IP>:`)
+1. Import the tables and insert the data: `mysql -u myusername -p < my-db.sql` or `sudo mysql < my-db.sql`
 1. Eventually check that the user account works and the data is there: `mysql -u myusername -p`
 
    ```sql
-   USE HealthDiary;
+   USE MyDatabaseName;
    SHOW TABLES;
-   SELECT * FROM Users;
    exit
    ```
 
@@ -240,13 +207,15 @@ Help for Linux usage:
 
 #### Node.js runtime and process management
 
-![Apache reverse proxy](./assets/apache-node-proxy.png)
+This can be done later when you have your Express application ready for deployment, but here are the instructions in advance.
+
+![Apache reverse proxy](assets/apache-node-proxy.png)
 
 1. Install _node.js_ and _npm_  from [nodesource package repository](https://github.com/nodesource/distributions#ubuntu-versions):
 
    ```bash
    # Download the setup script:
-   curl -fsSL https://deb.nodesource.com/setup_23.x -o nodesource_setup.sh
+   curl -fsSL https://deb.nodesource.com/setup_24.x -o nodesource_setup.sh
    # Run the setup script:
    sudo -E bash nodesource_setup.sh
    # Install node.js:
@@ -349,7 +318,7 @@ Help for Linux usage:
 
 #### Publishing Front-end application (Client)
 
-Front-end HTML/CSS/JS files can be served from any web server. **Easiest and the recommended solution** is to use the [Express static](https://expressjs.com/en/starter/static-files.html) files serving option. Then you don't need care about cors issues and the apache proxy setup done earlier works out-of-the-box. 
+Front-end HTML/CSS/JS files can be served from any web server. **Easiest and the recommended solution** is to use the [Express static](https://expressjs.com/en/starter/static-files.html) files serving option. Then you don't need care about cors issues and the apache proxy setup done earlier works out-of-the-box.
 
 For example when using Vite for front-end development:
 
