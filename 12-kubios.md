@@ -238,6 +238,9 @@ graph TD
         // Include kubiosIdToken in the auth token used in this app
         // NOTE: What is the expiration time of the Kubios token?
         const token = jwt.sign(
+          // NOTE: in this example, the user id is stored as 'userId', not 'user_id' in the token.
+          // You need to check all controllers that use the user id from the token and make sure to use the same property name,
+          // for example if you have 'req.user.user_id' in some controllers, change it to 'req.user.userId'.
           {userId: localUserId, kubiosIdToken},
           process.env.JWT_SECRET,
           {
